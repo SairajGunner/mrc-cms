@@ -25,7 +25,7 @@ router.post("/post", function (req, res) {
     organization: req.body.organization,
     dateOfAssociation: req.body.dateOfAssociation,
     areaOfInterest: req.body.areaOfInterest,
-    isProspect: req.body.isProspect,
+    isProspect: req.body.isProspect
   };
 
   fs.readFile(filePath, "utf-8", (err, data) => {
