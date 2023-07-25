@@ -3,9 +3,9 @@ var fs = require("fs");
 const path = require("path");
 
 const router = express.Router();
+const filePath = path.join(__dirname, "../database/notes.json");
 
 router.get("/get", function (req, res) {
-  const filePath = path.join(__dirname, "../database/notes.json");
   console.log(filePath);
 
   fs.readFile(filePath, "utf8", function (err, data) {
