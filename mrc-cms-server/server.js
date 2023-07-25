@@ -3,12 +3,12 @@ var express = require('express');
 var app = express();
 
 const customersEndpoint = require("./src/endpoints/customers.js");
-// const engagementsEndpoint = require("./src/endpoints/engagements.js");
-// const notesEndpoint = require("./src/endpoints/notes.js");
+const engagementsEndpoint = require("./src/endpoints/engagements.js");
+const notesEndpoint = require("./src/endpoints/notes.js");
 
 app.use("/customers", customersEndpoint);
-// app.use("/engagements", engagementsEndpoint);
-// app.use("/notes", notesEndpoint);
+app.use("/engagements", engagementsEndpoint);
+app.use("/notes", notesEndpoint);
 
 var server = app.listen(3010, function () {
   var host = server.address().address;
