@@ -1,0 +1,26 @@
+[
+  {
+    "id": "dd8d55b1-a188-40aa-9bde-7475b75eb084",
+    "name": "Ricardo Vaz Te",
+    "organization": "More than Virtual",
+    "dateOfAssociation": "12-Jun-2019",
+    "areaOfInterest": "Game Engine",
+    "isProspect": false
+  },
+  {
+    "id": "dd8d55b2-a188-40aa-9bde-7475b75eb084",
+    "name": "Jurrien Kuyt",
+    "organization": "Surreal Reality",
+    "dateOfAssociation": "15-Jul-2022",
+    "areaOfInterest": "Virtual Reality",
+    "isProspect": false
+  },
+  {
+    "id": "dd8d55b3-a188-40aa-9bde-7475b75eb084",
+    "name": "Jason Giles",
+    "organization": "Visionary Productions",
+    "dateOfAssociation": "",
+    "areaOfInterest": "Graphic Design",
+    "isProspect": true
+  }
+]
