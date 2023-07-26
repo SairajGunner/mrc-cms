@@ -1,0 +1,48 @@
+@use "../../App.scss";
+
+.header-container {
+  margin: 10px;
+  max-height: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+}
+
+.header-icons {
+  max-width: 200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.header-home-container {
+  max-width: 100px;
+  padding: 0 10px 0 10px;
+}
+
+.header-customers-container {
+  max-width: 100px;
+  padding: 0 10px 0 10px;
+}
+
+.header-search {
+  max-width: 600px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-left: 200px;
+}
+
+.header-search-text-container {
+    max-width: 100px;
+    padding: 0 10px 0 10px;
+}
+
+.header-search-bar-container {
+    min-width: 400px;
+    padding: 0 10px 0 10px;
+}
+
+#searchInput {
+    width: 350px;
+}
