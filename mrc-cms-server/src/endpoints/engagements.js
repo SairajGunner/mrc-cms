@@ -8,16 +8,48 @@ const filePath = path.join(__dirname, "../database/engagements.json");
 router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
 
-router.get("/get", function (req, res) {
+// Get all engagements
+router.get("/get", (req, res) => {
   console.log(filePath);
 
-  fs.readFile(filePath, "utf8", function (err, data) {
+  fs.readFile(filePath, "utf8", (err, data) => {
     console.log(data);
     res.end(data);
   });
 });
 
-router.post("/post", function (req, res) {
+// Get engagement by ID
+router.get("/get/:id", (req, res) => {
+  let engagementsList = [];
+
+  fs.readFile(filePath, "utf-8", (err, data) => {
+    engagementsList = JSON.parse(data);
+    let requiredEngagement = JSON.stringify(
+      engagementsList.find(
+        (engagement) => engagement.id == req.params.id
+      )
+    );
+    res.end(requiredEngagement);
+  });
+});
+
+//Get engagements by customerId
+router.get("/get/customer/:customerId", (req, res) => {
+  let engagementsList = [];
+
+  fs.readFile(filePath, "utf-8", (err, data) => {
+    engagementsList = JSON.parse(data);
+    let requiredEngagements = JSON.stringify(
+      engagementsList.filter(
+        (engagement) => engagement.customerId == req.params.customerId
+      )
+    );
+    res.end(requiredEngagements);
+  });
+});
+
+// Add a new engagement
+router.post("/post", (req, res) => {
   let engagementsList = [];
   const newEngagementData = {
     id: req.body.id,
@@ -36,7 +68,50 @@ router.post("/post", function (req, res) {
 
     fs.writeFileSync(filePath, JSON.stringify(engagementsList), "utf-8");
 
-    res.end("File Updated!");
+    res.end("Engagement added!");
+  });
+});
+
+// Update engagement by ID
+router.put("/update/:id", (req, res) => {
+  let engagementsList = [];
+
+  const engagementData = {
+    id: req.body.id,
+    customerId: req.body.customerId,
+    name: req.body.name,
+    startDate: req.body.startDate,
+    endDate: req.body.endDate,
+    hoursOfWork: req.body.hoursOfWork,
+    areaOfWork: req.body.areaOfWork,
+    remarks: req.body.remarks
+  };
+
+  fs.readFile(filePath, "utf-8", (err, data) => {
+    engagementsList = JSON.parse(data);
+    engagementsList[
+      engagementsList.findIndex((engagement) => engagement.id == req.params.id)
+    ] = engagementData;
+
+    fs.writeFileSync(filePath, JSON.stringify(engagementsList), "utf-8");
+
+    res.end("Engagement updated!");
+  });
+});
+
+// Delete engagement by ID
+router.delete("/delete/:id", (req, res) => {
+  let engagementsList = [];
+
+  fs.readFile(filePath, "utf-8", (err, data) => {
+    engagementsList = JSON.parse(data);
+    engagementsList.splice([
+      engagementsList.findIndex((engagement) => engagement.id == req.params.id)
+    ]);
+
+    fs.writeFileSync(filePath, JSON.stringify(engagementsList), "utf-8");
+
+    res.end("Engagement deleted!");
   });
 });
 

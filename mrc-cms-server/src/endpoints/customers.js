@@ -83,8 +83,6 @@ router.put("/update/:id", (req, res) => {
 router.delete("/delete/:id", (req, res) => {
   let customerList = [];
 
-  console.log("Inside Request");
-
   fs.readFile(filePath, "utf-8", (err, data) => {
     customerList = JSON.parse(data);
     customerList.splice([
