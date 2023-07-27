@@ -7,7 +7,7 @@ export default class CustomerPicker extends Component {
       <div className="customer-picker-container">
         <div className="existing-customer-picker">
           <div>
-            <h4>Customers</h4>
+            <h4 id="customer-picker-first-header">Customers</h4>
           </div>
           <div>Customer 1</div>
           <div>Customer 2</div>

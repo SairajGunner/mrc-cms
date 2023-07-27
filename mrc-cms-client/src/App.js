@@ -6,6 +6,7 @@ import Home from "./components/home/Home";
 import AddCustomer from "./components/add-customer/AddCustomer";
 import CustomerPicker from "./components/customer-picker/CustomerPicker";
 import Notifications from "./components/notifications/Notifications";
+import SearchResults from "./components/search-results/SearchResults";
 
 export default class App extends Component {
   render() {
@@ -22,6 +23,10 @@ export default class App extends Component {
               <Routes>
                 <Route path="/" element={<Home />}></Route>
                 <Route path="/add-customer" element={<AddCustomer />}></Route>
+                <Route
+                  path="/search-results"
+                  element={<SearchResults />}
+                ></Route>
               </Routes>
             </main>
           </div>
