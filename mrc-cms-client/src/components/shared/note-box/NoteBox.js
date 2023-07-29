@@ -9,24 +9,26 @@ export default class NoteBox extends Component {
       <div className="note-box-container">
         <div className="note-box-header">
           <div className="note-box-header-title-container">
-            {this.props.title}
+            {this.props.note.title}
           </div>
           <div className="note-box-header-edit-container">
-            <FontAwesomeIcon
-              className="note-box-icon"
-              id="note-box-bell-icon"
-              icon={faBell}
-            />
+            {this.props.hasReminders && this.props.hasReminders.length > 0 && (
+              <FontAwesomeIcon
+                className="note-box-icon"
+                id="note-box-bell-icon"
+                icon={faBell}
+              />
+            )}
             <FontAwesomeIcon
               className="note-box-icon"
               id="note-box-pencil-icon"
               icon={faPencil}
             />
-            {this.props.date}
+            {this.props.note.date}
           </div>
         </div>
         <div className="note-box-content">
-          <p>{this.props.content}</p>
+          <p>{this.props.note.content}</p>
         </div>
       </div>
     );

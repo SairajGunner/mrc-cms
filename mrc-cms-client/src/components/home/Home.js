@@ -2,8 +2,36 @@ import { Component } from "react";
 import "./Home.scss";
 import Accordion from "../shared/accordion/Accordion";
 import NoteBox from "../shared/note-box/NoteBox";
+import { NotesAPI } from "../../services/notes-service.js";
 
 export default class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      notes: []
+    };
+  }
+
+  componentDidUpdate(previousProps, previousState) {
+    if (previousProps.selectedCustomer !== this.props.selectedCustomer) {
+      this.getNotesbyCustomerId();
+    }
+  }
+
+  getNotesbyCustomerId = () => {
+    if (this.props.selectedCustomer) {
+      NotesAPI.getNotesByCustomerId(this.props.selectedCustomer.id)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          this.setState({
+            notes: data
+          });
+        });
+    }
+  };
+
   render() {
     return (
       <div className="home-container">
@@ -57,11 +85,10 @@ export default class Home extends Component {
           title="Previous Engagements"
         ></Accordion>
         <Accordion id="accordion-notes" title="Notes">
-          <NoteBox
-            title="This is a title"
-            date="27-Jul-2023"
-            content="This is some content"
-          ></NoteBox>
+          {this.state.notes.map((note) => {
+            return <NoteBox key={note.id} note={note}></NoteBox>;
+          })}
+
           <div className="home-add-note-button-container">
             <button id="add-note">Add Note</button>
           </div>
