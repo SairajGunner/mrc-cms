@@ -9,6 +9,19 @@ import Notifications from "./components/notifications/Notifications";
 import SearchResults from "./components/search-results/SearchResults";
 
 export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedCustomer: undefined
+    };
+  }
+
+  selectCustomer = (customer) => {
+    this.setState({
+      selectedCustomer: customer
+    });
+  };
+
   render() {
     return (
       <div className="app-container">
@@ -16,12 +29,25 @@ export default class App extends Component {
         <hr></hr>
         <div className="app-content-container">
           <div className="app-customer-picker">
-            <CustomerPicker></CustomerPicker>
+            <CustomerPicker
+              selectCustomer={this.selectCustomer}
+            ></CustomerPicker>
           </div>
           <div className="app-main-content">
             <main>
               <Routes>
-                <Route path="/" element={<Home />}></Route>
+                <Route
+                  path="/"
+                  element={
+                    <Home
+                      selectedCustomer={
+                        this.state.selectedCustomer
+                          ? this.state.selectedCustomer
+                          : undefined
+                      }
+                    />
+                  }
+                ></Route>
                 <Route path="/add-customer" element={<AddCustomer />}></Route>
                 <Route
                   path="/search-results"

@@ -6,7 +6,8 @@ export default class CustomerPicker extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      customers: []
+      customers: [],
+      selectedCustomer: undefined
     };
     this.getAllCustomers();
   }
@@ -23,6 +24,14 @@ export default class CustomerPicker extends Component {
       });
   };
 
+  selectCustomer = (customer) => {
+    this.setState({
+      customers: this.state.customers,
+      selectedCustomer: customer
+    });
+    this.props.selectCustomer(customer);
+  };
+
   render() {
     return (
       <div className="customer-picker-container">
@@ -32,7 +41,21 @@ export default class CustomerPicker extends Component {
           </div>
           {this.state.customers.map((customer) => {
             if (!customer.isProspect) {
-              return <div key={customer.id}>{customer.name}</div>;
+              return (
+                <div
+                  className={
+                    this.state.selectedCustomer
+                      ? this.state.selectedCustomer.id === customer.id
+                        ? "selected-customer"
+                        : "customer"
+                      : "customer"
+                  }
+                  onClick={() => this.selectCustomer(customer)}
+                  key={customer.id}
+                >
+                  {customer.name}
+                </div>
+              );
             }
           })}
         </div>
@@ -42,7 +65,21 @@ export default class CustomerPicker extends Component {
           </div>
           {this.state.customers.map((customer) => {
             if (customer.isProspect) {
-              return <div key={customer.id}>{customer.name}</div>;
+              return (
+                <div
+                  className={
+                    this.state.selectedCustomer
+                      ? this.state.selectedCustomer.id === customer.id
+                        ? "selected-customer"
+                        : "customer"
+                      : "customer"
+                  }
+                  onClick={() => this.selectCustomer(customer)}
+                  key={customer.id}
+                >
+                  {customer.name}
+                </div>
+              );
             }
           })}
         </div>

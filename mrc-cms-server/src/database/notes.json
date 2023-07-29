@@ -5,7 +5,16 @@
     "title": "Catch-up on New Project",
     "date": "09-Jul-2023",
     "content": "The conversations went well and now Ricardo is waiting for the funding to be signed off before the project is started.",
-    "hasReminders": [1, 3, 5],
+    "hasReminders": [1, 3, 6],
+    "nextReminder": "09-Aug-2023"
+  },
+  {
+    "id": "90753f0d-3338-4f74-bfe7-2f792251689c",
+    "customerId": "dd8d55b1-a188-40aa-9bde-7475b75eb084",
+    "title": "New Project Discussion",
+    "date": "09-Jul-2023",
+    "content": "The conversations went well and now Ricardo is waiting for the funding to be signed off before the project is started.",
+    "hasReminders": [1, 3, 6],
     "nextReminder": "09-Aug-2023"
   },
   {
