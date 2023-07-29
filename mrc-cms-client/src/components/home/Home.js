@@ -10,10 +10,14 @@ export default class Home extends Component {
     this.state = {
       notes: []
     };
+    this.getNotesbyCustomerId();
   }
 
   componentDidUpdate(previousProps, previousState) {
     if (previousProps.selectedCustomer !== this.props.selectedCustomer) {
+      this.setState({
+        notes: []
+      });
       this.getNotesbyCustomerId();
     }
   }
@@ -85,8 +89,8 @@ export default class Home extends Component {
           title="Previous Engagements"
         ></Accordion>
         <Accordion id="accordion-notes" title="Notes">
-          {this.state.notes.map((note) => {
-            return <NoteBox key={note.id} note={note}></NoteBox>;
+          {this.state.notes.map((note, index) => {
+            return <NoteBox key={index} note={note}></NoteBox>;
           })}
 
           <div className="home-add-note-button-container">
