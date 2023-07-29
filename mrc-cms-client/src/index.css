@@ -29,17 +29,17 @@ code {
 }
 
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 2px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+  background: #4472c4; 
 }
  
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888; 
+  background: #888;
 }
 
 /* Handle on hover */

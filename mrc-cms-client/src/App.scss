@@ -8,8 +8,10 @@
   height: 100%;
 }
 
-// .app-customer-picker {
-// }
-
-// .app-notifications-panel {
-// }
+main,
+.app-customer-picker,
+.app-notifications-panel {
+  overflow-y: scroll;
+  height: 100%;
+  max-height: 100vh;
+}

@@ -1,7 +1,28 @@
 import { Component } from "react";
 import "./CustomerPicker.scss";
+import { CustomersAPI } from "../../services/customers-service.js";
 
 export default class CustomerPicker extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      customers: []
+    };
+    this.getAllCustomers();
+  }
+
+  getAllCustomers = () => {
+    CustomersAPI.getAllCustomers()
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        this.setState({
+          customers: data
+        });
+      });
+  };
+
   render() {
     return (
       <div className="customer-picker-container">
@@ -9,19 +30,21 @@ export default class CustomerPicker extends Component {
           <div>
             <h4 id="customer-picker-first-header">Customers</h4>
           </div>
-          <div>Customer 1</div>
-          <div>Customer 2</div>
-          <div>Customer 3</div>
-          <div>Customer 4</div>
+          {this.state.customers.map((customer) => {
+            if (!customer.isProspect) {
+              return <div key={customer.id}>{customer.name}</div>;
+            }
+          })}
         </div>
         <div className="prospective-customer-picker">
-        <div>
+          <div>
             <h4>Prospective Customers</h4>
           </div>
-          <div>Customer 5</div>
-          <div>Customer 6</div>
-          <div>Customer 7</div>
-          <div>Customer 8</div>
+          {this.state.customers.map((customer) => {
+            if (customer.isProspect) {
+              return <div key={customer.id}>{customer.name}</div>;
+            }
+          })}
         </div>
       </div>
     );

@@ -1,0 +1,43 @@
+.note-box-container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid white;
+  border-radius: 10px;
+  width: 100%;
+  background-color: white;
+  color: #143670;
+  font-size: calc(4px + 2vmin);
+}
+
+.note-box-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-weight: bold;
+}
+
+.note-box-header-title-container {
+  padding-top: 5px;
+  padding-left: 10px;
+}
+
+.note-box-header-edit-container {
+  padding-top: 5px;
+  padding-right: 10px;
+}
+
+.note-box-icon {
+  padding: 0 10px;
+}
+
+.note-box-content {
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
+p {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

@@ -1,6 +1,8 @@
 var express = require("express");
+const cors = require("cors");
 
 var app = express();
+app.use(cors());
 
 const customersEndpoint = require("./src/endpoints/customers.js");
 const engagementsEndpoint = require("./src/endpoints/engagements.js");
