@@ -4,18 +4,35 @@
   align-items: center;
 }
 
-.home-add-note-button-container {
+#accordion-details-container {
+  width: 100%;
+  z-index: 0;
+}
+
+#accordion-engagements-container {
+  width: 100%;
+  z-index: 1;
+}
+
+#accordion-notes-container {
+  width: 100%;
+  z-index: 2;
+}
+
+.home-add-button-container {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
 }
 
-#add-note {
+.btn-add {
     background-color: aliceblue;
     margin-top: 7.5px;
-    height: calc(20px + 1vmin);
-    width: calc(100px + 2vmin);
+    min-width: calc(100px + 2vmin);
+    max-width: calc(200px + 2vmin);
+    min-height: calc(20px + 1vmin);
+    max-height: calc(50px + 1vmin);
     border: none;
     color: #143670;
     font-weight: bold;
