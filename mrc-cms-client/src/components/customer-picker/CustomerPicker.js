@@ -18,9 +18,14 @@ export default class CustomerPicker extends Component {
         return response.json();
       })
       .then((data) => {
-        this.setState({
-          customers: data
-        });
+        this.setState(
+          {
+            customers: data
+          },
+          () => {
+            this.props.setCustomersInApp(this.state.customers);
+          }
+        );
       });
   };
 

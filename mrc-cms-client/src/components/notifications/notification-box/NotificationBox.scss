@@ -1,0 +1,27 @@
+.notification-section {
+  display: flex;
+  flex-direction: column;
+  min-width: 80%;
+  max-width: 80%;
+  align-items: center;
+}
+
+.notification-container {
+  min-width: 100%;
+  border: 1px solid white;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: calc(2px + 2vmin);
+  background-color: white;
+  color: #143670;
+  margin-bottom: 10px;
+}
+
+.notification-title {
+  font-weight: bold;
+}
+
+h5 {
+  margin: 10px 0px;
+  text-decoration: underline;
+}
