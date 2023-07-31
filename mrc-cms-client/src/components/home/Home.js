@@ -11,7 +11,8 @@ export default class Home extends Component {
     super(props);
     this.state = {
       notes: [],
-      engagements: []
+      engagements: [],
+      selectedEngagement: undefined
     };
     this.getNotesByCustomerId();
     this.getEngagementsByCustomerId();
@@ -21,7 +22,8 @@ export default class Home extends Component {
     if (previousProps.selectedCustomer !== this.props.selectedCustomer) {
       this.setState({
         notes: [],
-        engagements: []
+        engagements: [],
+        selectedEngagement: undefined
       });
       this.getNotesByCustomerId();
       this.getEngagementsByCustomerId();
@@ -37,7 +39,8 @@ export default class Home extends Component {
         .then((data) => {
           this.setState({
             notes: data,
-            engagements: this.state.engagements
+            engagements: this.state.engagements,
+            selectedEngagement: this.state.selectedEngagement
           });
         });
     }
@@ -52,10 +55,19 @@ export default class Home extends Component {
         .then((data) => {
           this.setState({
             notes: this.state.notes,
-            engagements: data
+            engagements: data,
+            selectedEngagement: this.state.selectedEngagement
           });
         });
     }
+  };
+
+  selectEngagement = (engagement) => {
+    this.setState({
+      notes: this.state.notes,
+      engagements: this.state.engagements,
+      selectedEngagement: engagement
+    });
   };
 
   render() {
@@ -112,8 +124,41 @@ export default class Home extends Component {
           <Accordion id="accordion-engagements" title="Previous Engagements">
             {this.state.engagements && this.state.engagements.length > 0 && (
               <EngagementDisplay
+                selectEngagement={this.selectEngagement}
                 engagements={this.state.engagements}
               ></EngagementDisplay>
+            )}
+            {this.state.selectedEngagement && (
+              <div id="engagement-box-container">
+                <div id="engagement-box-header">
+                  {this.state.selectedEngagement &&
+                    this.state.selectedEngagement.name}
+                </div>
+                <div id="engagement-box-content">
+                  <div id="engagement-box-content-dates">
+                    <div id="engagement-box-content-dates-startDate">
+                      Start Date:{" "}
+                      {this.state.selectedEngagement &&
+                        this.state.selectedEngagement.startDate}
+                    </div>
+                    <div id="engagement-box-content-dates-endDate">
+                      End Date:{" "}
+                      {this.state.selectedEngagement &&
+                        this.state.selectedEngagement.endDate}
+                    </div>
+                  </div>
+                  <div id="engagement-box-content-area-of-work">
+                    Area of Work:{" "}
+                    {this.state.selectedEngagement &&
+                      this.state.selectedEngagement.areaOfWork}
+                  </div>
+                  <div id="engagement-box-content-remarks">
+                    Remarks:{" "}
+                    {this.state.selectedEngagement &&
+                      this.state.selectedEngagement.remarks}
+                  </div>
+                </div>
+              </div>
             )}
             <div className="home-add-button-container">
               <button className="btn-add">Add Engagement</button>

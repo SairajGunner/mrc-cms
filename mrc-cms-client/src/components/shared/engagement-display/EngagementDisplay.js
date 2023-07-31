@@ -21,6 +21,13 @@ export default class EngagementDisplay extends Component {
         );
   };
 
+  selectEngagement = (engagement) => {
+    this.setState({
+      selectedEngagement: engagement
+    });
+    this.props.selectEngagement(engagement);
+  };
+
   render() {
     return (
       <div id="engagement-display-container">
@@ -45,9 +52,7 @@ export default class EngagementDisplay extends Component {
                           : "black"
                     }}
                     className="selected-engagement"
-                    onClick={() =>
-                      this.setState({ selectedEngagement: engagement })
-                    }
+                    onClick={() => this.selectEngagement(engagement)}
                   >
                     <td>{engagement.name}</td>
                     <td>
@@ -64,38 +69,6 @@ export default class EngagementDisplay extends Component {
             </tbody>
           </table>
         </div>
-        {this.state.selectedEngagement && (
-          <div id="engagement-box-container">
-            <div id="engagement-box-header">
-              {this.state.selectedEngagement &&
-                this.state.selectedEngagement.name}
-            </div>
-            <div id="engagement-box-content">
-              <div id="engagement-box-content-dates">
-                <div id="engagement-box-content-dates-startDate">
-                  Start Date:{" "}
-                  {this.state.selectedEngagement &&
-                    this.state.selectedEngagement.startDate}
-                </div>
-                <div id="engagement-box-content-dates-endDate">
-                  End Date:{" "}
-                  {this.state.selectedEngagement &&
-                    this.state.selectedEngagement.endDate}
-                </div>
-              </div>
-              <div id="engagement-box-content-area-of-work">
-                Area of Work:{" "}
-                {this.state.selectedEngagement &&
-                  this.state.selectedEngagement.areaOfWork}
-              </div>
-              <div id="engagement-box-content-remarks">
-                Remarks:{" "}
-                {this.state.selectedEngagement &&
-                  this.state.selectedEngagement.remarks}
-              </div>
-            </div>
-          </div>
-        )}
       </div>
     );
   }
