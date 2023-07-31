@@ -21,8 +21,8 @@ export default class Home extends Component {
   componentDidUpdate(previousProps, previousState) {
     if (previousProps.selectedCustomer !== this.props.selectedCustomer) {
       this.setState({
-        notes: [],
-        engagements: [],
+        notes: this.state.notes,
+        engagements: this.state.engagements,
         selectedEngagement: undefined
       });
       this.getNotesByCustomerId();
