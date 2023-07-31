@@ -1,0 +1,71 @@
+@use "../../App.scss";
+
+.header-container {
+  margin: 10px;
+  max-height: 100px;
+  display: grid;
+  grid-template-columns: 30% 50% 20%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+.header-icons {
+  width: 100%;
+  min-width: 0.3vw;
+  max-width: 200px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+// .header-icons a {
+//   color: grey;
+// }
+
+// .header-icons a :active {
+//   color: aliceblue;
+// }
+
+.header-home-container {
+  max-width: 100px;
+  padding: 0 10px 0 10px;
+}
+
+.header-customers-container {
+  max-width: 100px;
+  padding: 0 10px 0 10px;
+}
+
+.header-search {
+  max-width: 600px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.header-search-text-container {
+  max-width: 100px;
+  padding: 0 10px 0 10px;
+}
+
+.header-search-bar-container {
+  min-width: 400px;
+  padding: 0 10px 0 10px;
+}
+
+#searchInput {
+  min-height: 25px;
+  width: 350px;
+}
+
+.icon {
+  color: grey;
+  cursor: pointer;
+}
+
+.icon-selected {
+  color: aliceblue;
+}

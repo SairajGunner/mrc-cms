@@ -1,25 +1,66 @@
-import logo from './logo.svg';
-import './App.css';
+import { Component } from "react";
+import "./App.scss";
+import Header from "./components/header/Header";
+import { Routes, Route } from "react-router-dom";
+import Home from "./components/home/Home";
+import AddCustomer from "./components/add-customer/AddCustomer";
+import CustomerPicker from "./components/customer-picker/CustomerPicker";
+import Notifications from "./components/notifications/Notifications";
+import SearchResults from "./components/search-results/SearchResults";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedCustomer: undefined
+    };
+  }
+
+  selectCustomer = (customer) => {
+    this.setState({
+      selectedCustomer: customer
+    });
+  };
+
+  render() {
+    return (
+      <div className="app-container">
+        <Header></Header>
+        <hr></hr>
+        <div className="app-content-container">
+          <div className="app-customer-picker">
+            <CustomerPicker
+              selectCustomer={this.selectCustomer}
+            ></CustomerPicker>
+          </div>
+          <div className="app-main-content">
+            <main>
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    <Home
+                      selectedCustomer={
+                        this.state.selectedCustomer
+                          ? this.state.selectedCustomer
+                          : undefined
+                      }
+                    />
+                  }
+                ></Route>
+                <Route path="/add-customer" element={<AddCustomer />}></Route>
+                <Route
+                  path="/search-results"
+                  element={<SearchResults />}
+                ></Route>
+              </Routes>
+            </main>
+          </div>
+          <div className="app-notifications-panel">
+            <Notifications></Notifications>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
-
-export default App;

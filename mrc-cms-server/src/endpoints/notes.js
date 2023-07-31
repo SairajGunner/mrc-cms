@@ -8,6 +8,35 @@ const filePath = path.join(__dirname, "../database/notes.json");
 router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
 
+// Set next reminder date
+setReminderDate = (note) => {
+  let monthsToAdd = note.hasReminders.length > 0 ? note.hasReminders[0] : 0;
+  const date = new Date(date.setMonth(note.date.getMonth() + monthsToAdd));
+  const formattedDate = date
+    .toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "short",
+      year: "numeric"
+    })
+    .replace(/ /g, "-");
+  note.nextReminder = formattedDate;
+};
+
+// Remove expired reminders
+removeExpiredReminders = (note) => {
+  let newHasReminders = [];
+  if (note.hasReminders && note.hasReminders.length > 0) {
+    note.hasReminders.forEach((reminder) => {
+      if (
+        !new Date() > new Date(date.setMonth(note.date.getMonth() + reminder))
+      ) {
+        newHasReminders.push(reminder);
+      }
+    });
+  }
+  note.hasReminders = newHasReminders;
+};
+
 // Get all notes
 router.get("/get", (req, res) => {
   console.log(filePath);
@@ -83,9 +112,8 @@ router.put("/update/:id", (req, res) => {
 
   fs.readFile(filePath, "utf-8", (err, data) => {
     notesList = JSON.parse(data);
-    notesList[
-      notesList.findIndex((note) => note.id == req.params.id)
-    ] = noteData;
+    notesList[notesList.findIndex((note) => note.id == req.params.id)] =
+      noteData;
 
     fs.writeFileSync(filePath, JSON.stringify(notesList), "utf-8");
 
@@ -99,9 +127,7 @@ router.delete("/delete/:id", (req, res) => {
 
   fs.readFile(filePath, "utf-8", (err, data) => {
     notesList = JSON.parse(data);
-    notesList.splice([
-      notesList.findIndex((note) => note.id == req.params.id)
-    ]);
+    notesList.splice([notesList.findIndex((note) => note.id == req.params.id)]);
 
     fs.writeFileSync(filePath, JSON.stringify(notesList), "utf-8");
 

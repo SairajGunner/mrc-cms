@@ -1,0 +1,17 @@
+.app-container {
+  height: 100%;
+}
+
+.app-content-container {
+  display: grid;
+  grid-template-columns: 20% 60% 20%;
+  height: 100%;
+}
+
+main,
+.app-customer-picker,
+.app-notifications-panel {
+  overflow-y: scroll;
+  height: 100%;
+  max-height: 100vh;
+}
