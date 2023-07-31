@@ -12,9 +12,16 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      customers: [],
       selectedCustomer: undefined
     };
   }
+
+  setCustomers = (customers) => {
+    this.setState({
+      customers: customers
+    });
+  };
 
   selectCustomer = (customer) => {
     this.setState({
@@ -30,6 +37,7 @@ export default class App extends Component {
         <div className="app-content-container">
           <div className="app-customer-picker">
             <CustomerPicker
+              setCustomersInApp={this.setCustomers}
               selectCustomer={this.selectCustomer}
             ></CustomerPicker>
           </div>
@@ -57,7 +65,7 @@ export default class App extends Component {
             </main>
           </div>
           <div className="app-notifications-panel">
-            <Notifications></Notifications>
+            <Notifications customers={this.state.customers}></Notifications>
           </div>
         </div>
       </div>

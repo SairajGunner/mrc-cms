@@ -8,20 +8,6 @@ const filePath = path.join(__dirname, "../database/notes.json");
 router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
 
-// Set next reminder date
-setReminderDate = (note) => {
-  let monthsToAdd = note.hasReminders.length > 0 ? note.hasReminders[0] : 0;
-  const date = new Date(date.setMonth(note.date.getMonth() + monthsToAdd));
-  const formattedDate = date
-    .toLocaleDateString("en-GB", {
-      day: "numeric",
-      month: "short",
-      year: "numeric"
-    })
-    .replace(/ /g, "-");
-  note.nextReminder = formattedDate;
-};
-
 // Remove expired reminders
 removeExpiredReminders = (note) => {
   let newHasReminders = [];
