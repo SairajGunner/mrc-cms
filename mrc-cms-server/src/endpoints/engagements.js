@@ -13,7 +13,7 @@ router.get("/get", (req, res) => {
   console.log(filePath);
 
   fs.readFile(filePath, "utf8", (err, data) => {
-    console.log(data);
+    res.setHeader("Content-Type", "application/json");
     res.end(data);
   });
 });
@@ -25,10 +25,9 @@ router.get("/get/:id", (req, res) => {
   fs.readFile(filePath, "utf-8", (err, data) => {
     engagementsList = JSON.parse(data);
     let requiredEngagement = JSON.stringify(
-      engagementsList.find(
-        (engagement) => engagement.id == req.params.id
-      )
+      engagementsList.find((engagement) => engagement.id == req.params.id)
     );
+    res.setHeader("Content-Type", "application/json");
     res.end(requiredEngagement);
   });
 });
@@ -44,6 +43,7 @@ router.get("/get/customer/:customerId", (req, res) => {
         (engagement) => engagement.customerId == req.params.customerId
       )
     );
+    res.setHeader("Content-Type", "application/json");
     res.end(requiredEngagements);
   });
 });
@@ -68,6 +68,7 @@ router.post("/post", (req, res) => {
 
     fs.writeFileSync(filePath, JSON.stringify(engagementsList), "utf-8");
 
+    res.setHeader("Content-Type", "application/json");
     res.end("Engagement added!");
   });
 });
@@ -95,6 +96,7 @@ router.put("/update/:id", (req, res) => {
 
     fs.writeFileSync(filePath, JSON.stringify(engagementsList), "utf-8");
 
+    res.setHeader("Content-Type", "application/json");
     res.end("Engagement updated!");
   });
 });
@@ -111,6 +113,7 @@ router.delete("/delete/:id", (req, res) => {
 
     fs.writeFileSync(filePath, JSON.stringify(engagementsList), "utf-8");
 
+    res.setHeader("Content-Type", "application/json");
     res.end("Engagement deleted!");
   });
 });

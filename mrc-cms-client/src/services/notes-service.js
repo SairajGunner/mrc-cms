@@ -18,14 +18,20 @@ export const NotesAPI = {
   addNewNote: (note) => {
     return fetch(noteEndpoint + "/post", {
       method: "POST",
-      body: JSON.stringify(note)
+      body: JSON.stringify(note),
+      headers: {
+        "Content-Type": "application/json"
+      }
     });
   },
 
   updateNoteById: (note) => {
     return fetch(noteEndpoint + "/update" + `/${note.id}`, {
       method: "PUT",
-      body: JSON.stringify(note)
+      body: JSON.stringify(note),
+      headers: {
+        "Content-Type": "application/json"
+      }
     });
   },
 

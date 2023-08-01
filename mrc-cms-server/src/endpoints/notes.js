@@ -25,10 +25,8 @@ removeExpiredReminders = (note) => {
 
 // Get all notes
 router.get("/get", (req, res) => {
-  console.log(filePath);
-
   fs.readFile(filePath, "utf8", (err, data) => {
-    console.log(data);
+    res.setHeader('Content-Type', 'application/json');
     res.end(data);
   });
 });
@@ -42,6 +40,8 @@ router.get("/get/:id", (req, res) => {
     let requiredNote = JSON.stringify(
       notesList.find((note) => note.id == req.params.id)
     );
+
+    res.setHeader("Content-Type", "application/json");
     res.end(requiredNote);
   });
 });
@@ -55,6 +55,8 @@ router.get("/get/customer/:customerId", (req, res) => {
     let requiredNotes = JSON.stringify(
       notesList.filter((note) => note.customerId == req.params.customerId)
     );
+
+    res.setHeader("Content-Type", "application/json");
     res.end(requiredNotes);
   });
 });
@@ -69,7 +71,7 @@ router.post("/post", (req, res) => {
     date: req.body.date,
     content: req.body.content,
     hasReminders: req.body.hasReminders,
-    nextReminder: req.body.nextReminder
+    isCompleted: req.body.isCompleted
   };
 
   fs.readFile(filePath, "utf-8", (err, data) => {
@@ -78,6 +80,7 @@ router.post("/post", (req, res) => {
 
     fs.writeFileSync(filePath, JSON.stringify(notesList), "utf-8");
 
+    res.setHeader("Content-Type", "application/json");
     res.end("File Updated!");
   });
 });
@@ -93,7 +96,7 @@ router.put("/update/:id", (req, res) => {
     date: req.body.date,
     content: req.body.content,
     hasReminders: req.body.hasReminders,
-    nextReminder: req.body.nextReminder
+    isCompleted: req.body.isCompleted
   };
 
   fs.readFile(filePath, "utf-8", (err, data) => {
@@ -102,7 +105,7 @@ router.put("/update/:id", (req, res) => {
       noteData;
 
     fs.writeFileSync(filePath, JSON.stringify(notesList), "utf-8");
-
+    res.setHeader("Content-Type", "application/json");
     res.end("Note updated!");
   });
 });
@@ -117,6 +120,7 @@ router.delete("/delete/:id", (req, res) => {
 
     fs.writeFileSync(filePath, JSON.stringify(notesList), "utf-8");
 
+    res.setHeader("Content-Type", "application/json");
     res.end("Note deleted!");
   });
 });

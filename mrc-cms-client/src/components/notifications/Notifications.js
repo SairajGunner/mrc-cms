@@ -24,7 +24,10 @@ export default class Notifications extends Component {
       .then((data) => {
         if (data.length > 0) {
           allActiveNotes = data.filter(
-            (note) => note.hasReminders.length > 0 && !note.isCompleted
+            (note) =>
+              note.hasReminders &&
+              note.hasReminders.length > 0 &&
+              !note.isCompleted
           );
           this.setOneYearNotifications(allActiveNotes);
           this.setSixMonthNotifications(allActiveNotes);
@@ -32,6 +35,14 @@ export default class Notifications extends Component {
           this.setOneMonthNotifications(allActiveNotes);
         }
       });
+  };
+
+  noteCompleted = (note) => {
+    note.isCompleted = true;
+    NotesAPI.updateNoteById(note).then((response) => {
+      console.log(response);
+      this.getAllNotes();
+    });
   };
 
   setOneYearNotifications = (allActiveNotes) => {
@@ -100,6 +111,7 @@ export default class Notifications extends Component {
                   <NotificationBox
                     key={note.id}
                     note={note}
+                    noteCompleted={this.noteCompleted}
                     customerName={
                       this.props.customers && this.props.customers.length > 0
                         ? this.props.customers.find(
@@ -121,6 +133,7 @@ export default class Notifications extends Component {
                   <NotificationBox
                     key={note.id}
                     note={note}
+                    noteCompleted={this.noteCompleted}
                     customerName={
                       this.props.customers && this.props.customers.length > 0
                         ? this.props.customers.find(
@@ -142,6 +155,7 @@ export default class Notifications extends Component {
                   <NotificationBox
                     key={note.id}
                     note={note}
+                    noteCompleted={this.noteCompleted}
                     customerName={
                       this.props.customers && this.props.customers.length > 0
                         ? this.props.customers.find(
@@ -163,6 +177,7 @@ export default class Notifications extends Component {
                   <NotificationBox
                     key={note.id}
                     note={note}
+                    noteCompleted={this.noteCompleted}
                     customerName={
                       this.props.customers && this.props.customers.length > 0
                         ? this.props.customers.find(

@@ -18,14 +18,20 @@ export const EngagementsAPI = {
   addNewEngagement: (engagement) => {
     return fetch(engagementEndpoint + "/post", {
       method: "POST",
-      body: JSON.stringify(engagement)
+      body: JSON.stringify(engagement),
+      headers: {
+        "Content-Type": "application/json"
+      }
     });
   },
 
   updateEngagementById: (engagement) => {
     return fetch(engagementEndpoint + "/update" + `/${engagement.id}`, {
       method: "PUT",
-      body: JSON.stringify(engagement)
+      body: JSON.stringify(engagement),
+      headers: {
+        "Content-Type": "application/json"
+      }
     });
   },
 
