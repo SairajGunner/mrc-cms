@@ -10,7 +10,11 @@ export default class NotificationBox extends Component {
           <p>Date: {this.props.note.date}</p>
           <p>Customer: {this.props.customerName}</p>
           <p>
-            Completed: <input type="checkbox"></input>
+            Completed:{" "}
+            <input
+              onClick={() => this.props.noteCompleted(this.props.note)}
+              type="checkbox"
+            ></input>
           </p>
         </div>
       </div>

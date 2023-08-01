@@ -14,14 +14,20 @@ export const CustomersAPI = {
   addNewCustomer: (customer) => {
     return fetch(customerEndpoint + "/post", {
       method: "POST",
-      body: JSON.stringify(customer)
+      body: JSON.stringify(customer),
+      headers: {
+        "Content-Type": "application/json"
+      }
     });
   },
 
   updateCustomerById: (customer) => {
     return fetch(customerEndpoint + "/update" + `/${customer.id}`, {
       method: "PUT",
-      body: JSON.stringify(customer)
+      body: JSON.stringify(customer),
+      headers: {
+        "Content-Type": "application/json"
+      }
     });
   },
 

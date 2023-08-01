@@ -10,10 +10,8 @@ router.use(express.urlencoded({ extended: false }));
 
 // Get all customers
 router.get("/get", (req, res) => {
-  console.log(filePath);
-
   fs.readFile(filePath, "utf-8", (err, data) => {
-    console.log(data);
+    res.setHeader("Content-Type", "application/json");
     res.end(data);
   });
 });
@@ -27,6 +25,8 @@ router.get("/get/:id", (req, res) => {
     let requiredCustomer = JSON.stringify(
       customerList.find((customer) => customer.id == req.params.id)
     );
+
+    res.setHeader("Content-Type", "application/json");
     res.end(requiredCustomer);
   });
 });
@@ -50,6 +50,7 @@ router.post("/post", (req, res) => {
 
     fs.writeFileSync(filePath, JSON.stringify(customerList), "utf-8");
 
+    res.setHeader("Content-Type", "application/json");
     res.end("Customer added!");
   });
 });
@@ -75,6 +76,7 @@ router.put("/update/:id", (req, res) => {
 
     fs.writeFileSync(filePath, JSON.stringify(customerList), "utf-8");
 
+    res.setHeader("Content-Type", "application/json");
     res.end("Customer updated!");
   });
 });
@@ -91,6 +93,7 @@ router.delete("/delete/:id", (req, res) => {
 
     fs.writeFileSync(filePath, JSON.stringify(customerList), "utf-8");
 
+    res.setHeader("Content-Type", "application/json");
     res.end("Customer deleted!");
   });
 });
