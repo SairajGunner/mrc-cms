@@ -5,6 +5,7 @@ import NoteBox from "../shared/note-box/NoteBox";
 import { NotesAPI } from "../../services/notes-service.js";
 import { EngagementsAPI } from "../../services/engagements-service";
 import EngagementDisplay from "../shared/engagement-display/EngagementDisplay";
+import NoteBoxEditor from "../shared/note-box-editor/NoteBoxEditor";
 
 export default class Home extends Component {
   constructor(props) {
@@ -170,9 +171,17 @@ export default class Home extends Component {
             {this.state.notes.map((note, index) => {
               return <NoteBox key={index} note={note}></NoteBox>;
             })}
-            <div className="home-add-button-container">
+            <NoteBoxEditor
+              customerId={
+                this.props.selectedCustomer
+                  ? this.props.selectedCustomer.id
+                  : ""
+              }
+              completedEditing={this.getNotesByCustomerId}
+            ></NoteBoxEditor>
+            {/* <div className="home-add-button-container">
               <button className="btn-add">Add Note</button>
-            </div>
+            </div> */}
           </Accordion>
         </div>
       </div>
