@@ -1,0 +1,111 @@
+.note-box-edit-container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid white;
+  border-radius: 10px;
+  width: 100%;
+  background-color: white;
+  color: #143670;
+  font-size: calc(4px + 2vmin);
+  margin-bottom: 5px;
+}
+
+.note-box-edit-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-weight: bold;
+}
+
+.note-box-edit-header-title-container {
+  padding-top: 5px;
+  padding-left: 10px;
+  min-width: 70%;
+}
+
+#note-box-edit-header-title {
+  width: 100%;
+  color: #143670;
+  font-size: calc(4px + 2vmin);
+  font-weight: bold;
+}
+
+.note-box-edit-header-edit-container {
+  padding-top: 5px;
+  padding-right: 10px;
+}
+
+.note-box-edit-icon {
+  padding: 0 10px;
+}
+
+#note-box-edit-complete-icon {
+  cursor: pointer;
+}
+
+#note-box-edit-reminder-selection-text {
+  padding-right: 20px;
+}
+
+#note-box-edit-reminder-selection-container {
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+#note-box-edit-reminder-selection-pills {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.note-box-edit-reminder-pill {
+  box-shadow: 2px 2px #143670;
+  background-color: #4472c4;
+  border: 1px solid #143670;
+  border-radius: 5px;
+  min-width: 65px;
+  margin: 0 5px;
+  padding: 0 10px;
+  font-size: calc(2px + 2vmin);
+  color: white;
+  font-weight: normal;
+  text-align: center;
+  cursor: pointer;
+}
+
+.note-box-edit-reminder-pill-selected {
+  background-color: white;
+  border: 1px solid #143670;
+  box-shadow: 1px 1px #143670;
+  border-radius: 5px;
+  min-width: 65px;
+  margin: 0 5px;
+  padding: 0 10px;
+  font-size: calc(2px + 2vmin);
+  color: #4472c4;
+  font-weight: normal;
+  text-align: center;
+  cursor: pointer;
+}
+
+.note-box-edit-content {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+}
+
+#note-box-edit-content-textarea {
+  width: 100%;
+  color: #143670;
+  font-size: calc(4px + 2vmin);
+}
+
+p {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}

@@ -5,6 +5,7 @@ import NoteBox from "../shared/note-box/NoteBox";
 import { NotesAPI } from "../../services/notes-service.js";
 import { EngagementsAPI } from "../../services/engagements-service";
 import EngagementDisplay from "../shared/engagement-display/EngagementDisplay";
+import NoteBoxEditor from "../shared/note-box-editor/NoteBoxEditor";
 
 export default class Home extends Component {
   constructor(props) {
@@ -12,7 +13,9 @@ export default class Home extends Component {
     this.state = {
       notes: [],
       engagements: [],
-      selectedEngagement: undefined
+      selectedEngagement: undefined,
+      isEditNote: false,
+      noteBeingEdited: undefined
     };
     this.getNotesByCustomerId();
     this.getEngagementsByCustomerId();
@@ -23,7 +26,9 @@ export default class Home extends Component {
       this.setState({
         notes: this.state.notes,
         engagements: this.state.engagements,
-        selectedEngagement: undefined
+        selectedEngagement: undefined,
+        isEditNote: false,
+        noteBeingEdited: undefined
       });
       this.getNotesByCustomerId();
       this.getEngagementsByCustomerId();
@@ -38,9 +43,7 @@ export default class Home extends Component {
         })
         .then((data) => {
           this.setState({
-            notes: data,
-            engagements: this.state.engagements,
-            selectedEngagement: this.state.selectedEngagement
+            notes: data
           });
         });
     }
@@ -54,9 +57,7 @@ export default class Home extends Component {
         })
         .then((data) => {
           this.setState({
-            notes: this.state.notes,
-            engagements: data,
-            selectedEngagement: this.state.selectedEngagement
+            engagements: data
           });
         });
     }
@@ -68,6 +69,21 @@ export default class Home extends Component {
       engagements: this.state.engagements,
       selectedEngagement: engagement
     });
+  };
+
+  editNote = (note) => {
+    this.setState({ isEditNote: true });
+    this.setState({ noteBeingEdited: note });
+    window.scrollTo(0, document.body.scrollHeight);
+  };
+
+  onEditNoteComplete = () => {
+    if (this.state.isEditNote) {
+      this.setState({ isEditNote: false });
+      this.setState({ noteBeingEdited: undefined });
+      window.scrollTo(0, 0);
+    }
+    this.getNotesByCustomerId();
   };
 
   render() {
@@ -168,11 +184,24 @@ export default class Home extends Component {
         <div id="accordion-notes-container">
           <Accordion id="accordion-notes" title="Notes">
             {this.state.notes.map((note, index) => {
-              return <NoteBox key={index} note={note}></NoteBox>;
+              return (
+                <NoteBox
+                  key={index}
+                  onEditClick={this.editNote}
+                  editCompleted={!this.state.isEditNote}
+                  note={note}
+                ></NoteBox>
+              );
             })}
-            <div className="home-add-button-container">
-              <button className="btn-add">Add Note</button>
-            </div>
+            <NoteBoxEditor
+              customerId={
+                this.props.selectedCustomer
+                  ? this.props.selectedCustomer.id
+                  : ""
+              }
+              noteToEdit={this.state.noteBeingEdited}
+              completedEditing={this.onEditNoteComplete}
+            ></NoteBoxEditor>
           </Accordion>
         </div>
       </div>
