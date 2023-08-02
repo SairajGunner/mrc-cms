@@ -8,13 +8,49 @@ export default class NoteBoxEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: undefined,
+      title: "",
       oneMonthReminder: false,
       threeMonthReminder: false,
       sixMonthReminder: false,
       oneYearReminder: false,
-      content: undefined
+      content: ""
     };
+  }
+
+  componentDidUpdate(previousProps) {
+    if (previousProps.noteToEdit !== this.props.noteToEdit) {
+      if (this.props.noteToEdit) {
+        this.setState({
+          title: this.props.noteToEdit.title,
+          oneMonthReminder:
+            this.props.noteToEdit.hasReminders.findIndex(
+              (reminder) => reminder === 1
+            ) > -1,
+          threeMonthReminder:
+            this.props.noteToEdit.hasReminders.findIndex(
+              (reminder) => reminder === 3
+            ) > -1,
+          sixMonthReminder:
+            this.props.noteToEdit.hasReminders.findIndex(
+              (reminder) => reminder === 6
+            ) > -1,
+          oneYearReminder:
+            this.props.noteToEdit.hasReminders.findIndex(
+              (reminder) => reminder === 12
+            ) > -1,
+          content: this.props.noteToEdit.content
+        });
+      } else {
+        this.setState({
+          title: "",
+          oneMonthReminder: false,
+          threeMonthReminder: false,
+          sixMonthReminder: false,
+          oneYearReminder: false,
+          content: ""
+        });
+      }
+    }
   }
 
   updateTitle = (e) => {
@@ -56,7 +92,7 @@ export default class NoteBoxEditor extends Component {
     }
   };
 
-  addNote = () => {
+  editCompleted = () => {
     let reminders = new Array(4);
 
     if (this.state.oneMonthReminder) reminders[0] = 1;
@@ -64,37 +100,64 @@ export default class NoteBoxEditor extends Component {
     if (this.state.sixMonthReminder) reminders[2] = 6;
     if (this.state.oneYearReminder) reminders[3] = 12;
 
-    NotesAPI.addNewNote({
-      customerId: this.props.customerId,
-      title: this.state.title,
-      date: new Date()
-        .toLocaleDateString("en-GB", {
-          day: "numeric",
-          month: "short",
-          year: "numeric"
-        })
-        .replace(/ /g, "-"),
-      content: this.state.content,
-      hasReminders: reminders,
-      isCompleted: false
-    }).then((response) => {
-      console.log(response);
-      this.props.completedEditing();
-      this.setState({
-        title: undefined,
-        oneMonthReminder: false,
-        threeMonthReminder: false,
-        sixMonthReminder: false,
-        oneYearReminder: false,
-        content: undefined
+    if (this.props.noteToEdit) {
+      NotesAPI.updateNoteById({
+        id: this.props.noteToEdit.id,
+        customerId: this.props.noteToEdit.customerId,
+        title: this.state.title,
+        date: this.props.noteToEdit.date,
+        content: this.state.content,
+        hasReminders: reminders,
+        isCompleted: this.props.noteToEdit.isCompleted
+      }).then(() => {
+        this.props.completedEditing();
+        this.setState({
+          title: "",
+          oneMonthReminder: false,
+          threeMonthReminder: false,
+          sixMonthReminder: false,
+          oneYearReminder: false,
+          content: ""
+        });
+        document
+          .getElementById("note-box-edit-header-title")
+          .setAttribute("value", "");
+        document
+          .getElementById("note-box-edit-content-textarea")
+          .setAttribute("value", "");
       });
-      document
-        .getElementById("note-box-edit-header-title")
-        .setAttribute("value", undefined);
-      document
-        .getElementById("note-box-edit-content-textarea")
-        .setAttribute("value", undefined);
-    });
+    } else {
+      NotesAPI.addNewNote({
+        customerId: this.props.customerId,
+        title: this.state.title,
+        date: new Date()
+          .toLocaleDateString("en-GB", {
+            day: "numeric",
+            month: "short",
+            year: "numeric"
+          })
+          .replace(/ /g, "-"),
+        content: this.state.content,
+        hasReminders: reminders,
+        isCompleted: false
+      }).then(() => {
+        this.props.completedEditing();
+        this.setState({
+          title: "",
+          oneMonthReminder: false,
+          threeMonthReminder: false,
+          sixMonthReminder: false,
+          oneYearReminder: false,
+          content: ""
+        });
+        document
+          .getElementById("note-box-edit-header-title")
+          .setAttribute("value", "");
+        document
+          .getElementById("note-box-edit-content-textarea")
+          .setAttribute("value", "");
+      });
+    }
   };
 
   render() {
@@ -107,16 +170,20 @@ export default class NoteBoxEditor extends Component {
               type="text"
               placeholder="Take a Quick Note Here"
               onChange={this.updateTitle}
+              value={this.state.title}
             ></input>
           </div>
           <div className="note-box-edit-header-edit-container">
             <FontAwesomeIcon
               className="note-box-edit-icon"
               id="note-box-edit-complete-icon"
-              onClick={this.addNote}
+              onClick={this.editCompleted}
               icon={faCheck}
             />
-            {new Date()
+            {(() =>
+              this.props.noteToEdit
+                ? new Date(this.props.noteToEdit.date)
+                : new Date())()
               .toLocaleDateString("en-GB", {
                 day: "numeric",
                 month: "short",
@@ -176,6 +243,7 @@ export default class NoteBoxEditor extends Component {
             rows={4}
             placeholder="The content goes here. Use the tick mark on the header to upload the note."
             onChange={this.updateContent}
+            value={this.state.content}
           ></textarea>
         </div>
       </div>

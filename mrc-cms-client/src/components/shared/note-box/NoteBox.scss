@@ -10,6 +10,18 @@
   margin-bottom: 5px;
 }
 
+.note-box-container-edit {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid white;
+  border-radius: 10px;
+  width: 100%;
+  background-color: blanchedalmond;
+  color: darkred;
+  font-size: calc(4px + 2vmin);
+  margin-bottom: 5px;
+}
+
 .note-box-header {
   display: flex;
   flex-direction: row;
@@ -34,13 +46,17 @@
   padding: 0 10px;
 }
 
+#note-box-pencil-icon {
+  cursor: pointer;
+}
+
 .note-box-content {
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
 }
 
 p {
-    margin-top: 5px;
-    margin-bottom: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }

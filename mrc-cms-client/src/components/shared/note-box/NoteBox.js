@@ -4,9 +4,39 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faPencil } from "@fortawesome/free-solid-svg-icons";
 
 export default class NoteBox extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isEditMode: false
+    };
+  }
+
+  componentDidUpdate(previousProps) {
+    if (previousProps.editCompleted !== this.props.editCompleted) {
+      if (this.props.editCompleted) {
+        this.setState({
+          isEditMode: false
+        })
+      }
+    }
+  }
+
+  editIconClick = () => {
+    this.setState({
+      isEditMode: true
+    });
+    this.props.onEditClick(this.props.note);
+  };
+
   render() {
     return (
-      <div className="note-box-container">
+      <div
+        className={
+          this.state.isEditMode
+            ? "note-box-container-edit"
+            : "note-box-container"
+        }
+      >
         <div className="note-box-header">
           <div className="note-box-header-title-container">
             {this.props.note.title}
@@ -24,6 +54,7 @@ export default class NoteBox extends Component {
               className="note-box-icon"
               id="note-box-pencil-icon"
               icon={faPencil}
+              onClick={() => this.editIconClick()}
             />
             {this.props.note.date}
           </div>

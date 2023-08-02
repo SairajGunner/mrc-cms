@@ -97,7 +97,7 @@ router.put("/update/:id", (req, res) => {
     title: req.body.title,
     date: req.body.date,
     content: req.body.content,
-    hasReminders: req.body.hasReminders,
+    hasReminders: req.body.hasReminders.filter((reminder) => reminder != null),
     isCompleted: req.body.isCompleted
   };
 
