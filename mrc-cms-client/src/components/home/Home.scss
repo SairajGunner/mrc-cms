@@ -9,6 +9,33 @@
   z-index: 0;
 }
 
+.details-holder {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#details-options-holder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30%;
+}
+
+.field-validation {
+  color: red !important;
+}
+
+.details-form-input-field {
+  font-size: calc(4px + 2vmin);
+  color: #143670;
+}
+
+.details-action-icon {
+  cursor: pointer;
+}
+
 #accordion-engagements-container {
   width: 100%;
   z-index: 1;
@@ -50,27 +77,27 @@
 }
 
 .home-add-button-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-add {
-    background-color: aliceblue;
-    margin-top: 7.5px;
-    min-width: calc(100px + 2vmin);
-    max-width: calc(200px + 2vmin);
-    min-height: calc(20px + 1vmin);
-    max-height: calc(50px + 1vmin);
-    border: none;
-    color: #143670;
-    font-weight: bold;
-    cursor: pointer;
+  background-color: aliceblue;
+  margin-top: 7.5px;
+  min-width: calc(100px + 2vmin);
+  max-width: calc(200px + 2vmin);
+  min-height: calc(20px + 1vmin);
+  max-height: calc(50px + 1vmin);
+  border: none;
+  color: #143670;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 #add-note :hover {
-    box-shadow: 5px white;
+  box-shadow: 5px white;
 }
 
 h2 {

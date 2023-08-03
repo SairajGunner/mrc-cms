@@ -1,0 +1,29 @@
+.field-validation {
+  color: red !important;
+}
+
+.details-holder {
+  display: flex;
+  flex-direction: row;
+}
+
+.details-form-input-field {
+  font-size: calc(4px + 2vmin);
+  color: #143670;
+}
+
+#submit-check-holder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30%;
+}
+
+#details-completed-icon {
+  cursor: pointer;
+}
+
+#details-instructions-text {
+  text-align: center;
+  font-size: calc(2px + 2vmin);
+}

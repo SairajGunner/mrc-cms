@@ -2,15 +2,23 @@ import { Component } from "react";
 import "./Home.scss";
 import Accordion from "../shared/accordion/Accordion";
 import NoteBox from "../shared/note-box/NoteBox";
+import { CustomersAPI } from "../../services/customers-service.js";
 import { NotesAPI } from "../../services/notes-service.js";
 import { EngagementsAPI } from "../../services/engagements-service";
 import EngagementDisplay from "../shared/engagement-display/EngagementDisplay";
 import NoteBoxEditor from "../shared/note-box-editor/NoteBoxEditor";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencil, faCheck } from "@fortawesome/free-solid-svg-icons";
 
 export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      editingDetails: false,
+      customerName: "",
+      customerOrganization: "",
+      customerDateOfAssociation: "",
+      customerAreaOfInterest: "",
       notes: [],
       engagements: [],
       selectedEngagement: undefined,
@@ -21,7 +29,7 @@ export default class Home extends Component {
     this.getEngagementsByCustomerId();
   }
 
-  componentDidUpdate(previousProps, previousState) {
+  componentDidUpdate(previousProps) {
     if (previousProps.selectedCustomer !== this.props.selectedCustomer) {
       this.setState({
         notes: this.state.notes,
@@ -34,6 +42,62 @@ export default class Home extends Component {
       this.getEngagementsByCustomerId();
     }
   }
+
+  editDetails = () => {
+    this.setState({
+      editingDetails: true,
+      customerName: this.props.selectedCustomer.name,
+      customerOrganization: this.props.selectedCustomer.organization,
+      customerDateOfAssociation: this.props.selectedCustomer.dateOfAssociation,
+      customerAreaOfInterest: this.props.selectedCustomer.areaOfInterest
+    });
+  };
+
+  updateTextBox = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
+
+  validateDateFormat = (e) => {
+    const datePattern =
+      /^(0[1-9]|[12][0-9]|3[01])-(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)-\d{4}$|^$/;
+
+    if (e.target) {
+      datePattern.test(e.target.value)
+        ? e.target.classList.remove("field-validation")
+        : e.target.classList.add("field-validation");
+      return datePattern.test(e.target.value);
+    } else {
+      return datePattern.test(e.value);
+    }
+  };
+
+  completedEditingDetails = () => {
+    if (
+      this.validateDateFormat(document.getElementById("text-customer-since"))
+    ) {
+      CustomersAPI.updateCustomerById({
+        id: this.props.selectedCustomer.id,
+        name: this.state.customerName,
+        organization: this.state.customerOrganization,
+        dateOfAssociation: this.state.customerDateOfAssociation,
+        areaOfInterest: this.state.customerAreaOfInterest,
+        isProspect: this.state.customerDateOfAssociation ? false : true
+      }).then((response) => {
+        if (response.ok) {
+          this.setState(
+            {
+              editingDetails: false
+            },
+            () => {
+              this.props.updateCustomerList();
+            }
+          );
+        }
+      });
+    }
+  };
 
   getNotesByCustomerId = () => {
     if (this.props.selectedCustomer) {
@@ -102,37 +166,101 @@ export default class Home extends Component {
                   <tr>
                     <td>Name:</td>
                     <td>
-                      {this.props.selectedCustomer
+                      {!this.state.editingDetails && this.props.selectedCustomer
                         ? this.props.selectedCustomer.name
                         : undefined}
+                      {this.state.editingDetails && (
+                        <input
+                          id="text-customer-name"
+                          className="details-form-input-field"
+                          autoComplete="off"
+                          name="customerName"
+                          type="text"
+                          value={this.state.customerName}
+                          onChange={this.updateTextBox}
+                        ></input>
+                      )}
                     </td>
                   </tr>
                   <tr>
                     <td>Organization:</td>
                     <td>
-                      {this.props.selectedCustomer
+                      {!this.state.editingDetails && this.props.selectedCustomer
                         ? this.props.selectedCustomer.organization
                         : undefined}
+                      {this.state.editingDetails && (
+                        <input
+                          id="text-customer-org"
+                          className="details-form-input-field"
+                          autoComplete="off"
+                          name="customerOrganization"
+                          type="text"
+                          value={this.state.customerOrganization}
+                          onChange={this.updateTextBox}
+                        ></input>
+                      )}
                     </td>
                   </tr>
                   <tr>
                     <td>Customer Since:</td>
                     <td>
-                      {this.props.selectedCustomer
+                      {!this.state.editingDetails && this.props.selectedCustomer
                         ? this.props.selectedCustomer.dateOfAssociation
                         : undefined}
+                      {this.state.editingDetails && (
+                        <input
+                          id="text-customer-since"
+                          className={"details-form-input-field"}
+                          autoComplete="off"
+                          name="customerDateOfAssociation"
+                          placeholder="Empty for prospects"
+                          type="text"
+                          value={this.state.customerDateOfAssociation}
+                          onChange={this.updateTextBox}
+                          onBlur={this.validateDateFormat}
+                        ></input>
+                      )}
                     </td>
                   </tr>
                   <tr>
                     <td>Area of Interest:</td>
                     <td>
-                      {this.props.selectedCustomer
+                      {!this.state.editingDetails && this.props.selectedCustomer
                         ? this.props.selectedCustomer.areaOfInterest
                         : undefined}
+                      {this.state.editingDetails && (
+                        <input
+                          id="text-customer-since"
+                          className="details-form-input-field"
+                          autoComplete="off"
+                          name="customerAreaOfInterest"
+                          type="text"
+                          value={this.state.customerAreaOfInterest}
+                          onChange={this.updateTextBox}
+                        ></input>
+                      )}
                     </td>
                   </tr>
                 </tbody>
               </table>
+              <div id="details-options-holder">
+                {!this.state.editingDetails && (
+                  <FontAwesomeIcon
+                    id="details-edit-icon"
+                    className="details-action-icon fa-2x"
+                    onClick={this.editDetails}
+                    icon={faPencil}
+                  />
+                )}
+                {this.state.editingDetails && (
+                  <FontAwesomeIcon
+                    id="details-completed-icon"
+                    className="details-action-icon fa-3x"
+                    onClick={this.completedEditingDetails}
+                    icon={faCheck}
+                  />
+                )}
+              </div>
             </div>
           </Accordion>
         </div>

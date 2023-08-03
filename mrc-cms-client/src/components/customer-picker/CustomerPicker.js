@@ -12,7 +12,15 @@ export default class CustomerPicker extends Component {
     this.getAllCustomers();
   }
 
-  getAllCustomers = () => {
+  componentDidUpdate(previousProps) {
+    if (previousProps.updateCustomerList !== this.props.updateCustomerList) {
+      if (this.props.updateCustomerList) {
+        this.getAllCustomers("updating");
+      }
+    }
+  }
+
+  getAllCustomers = (callingCondition) => {
     CustomersAPI.getAllCustomers()
       .then((response) => {
         return response.json();
@@ -24,6 +32,13 @@ export default class CustomerPicker extends Component {
           },
           () => {
             this.props.setCustomersInApp(this.state.customers);
+            if (callingCondition === "updating") {
+              this.selectCustomer(
+                this.state.customers.find(
+                  (customer) => customer.id === this.state.selectedCustomer.id
+                )
+              );
+            }
           }
         );
       });
