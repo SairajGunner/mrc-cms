@@ -12,6 +12,14 @@ export default class CustomerPicker extends Component {
     this.getAllCustomers();
   }
 
+  componentDidUpdate(previousProps) {
+    if (previousProps.updateCustomerList !== this.props.updateCustomerList) {
+      if (this.props.updateCustomerList) {
+        this.getAllCustomers();
+      }
+    }
+  }
+
   getAllCustomers = () => {
     CustomersAPI.getAllCustomers()
       .then((response) => {

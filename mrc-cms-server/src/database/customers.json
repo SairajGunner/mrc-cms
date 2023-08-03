@@ -22,5 +22,13 @@
     "dateOfAssociation": "",
     "areaOfInterest": "Graphic Design",
     "isProspect": true
+  },
+  {
+    "id": "165f965d-d8a2-47af-aee7-223996a6025a",
+    "name": "Jimmy Brooks",
+    "organization": "Degrassi High",
+    "dateOfAssociation": "12-Jul-2023",
+    "areaOfInterest": "Level Design",
+    "isProspect": false
   }
 ]

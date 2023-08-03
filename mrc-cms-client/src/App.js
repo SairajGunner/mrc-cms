@@ -13,19 +13,27 @@ export default class App extends Component {
     super(props);
     this.state = {
       customers: [],
-      selectedCustomer: undefined
+      selectedCustomer: undefined,
+      updateCustomers: false
     };
   }
 
   setCustomers = (customers) => {
     this.setState({
-      customers: customers
+      customers: customers,
+      updateCustomers: false
     });
   };
 
   selectCustomer = (customer) => {
     this.setState({
       selectedCustomer: customer
+    });
+  };
+
+  updateCustomerList = () => {
+    this.setState({
+      updateCustomers: true
     });
   };
 
@@ -39,6 +47,7 @@ export default class App extends Component {
             <CustomerPicker
               setCustomersInApp={this.setCustomers}
               selectCustomer={this.selectCustomer}
+              updateCustomerList={this.state.updateCustomers}
             ></CustomerPicker>
           </div>
           <div className="app-main-content">
@@ -56,7 +65,12 @@ export default class App extends Component {
                     />
                   }
                 ></Route>
-                <Route path="/add-customer" element={<AddCustomer />}></Route>
+                <Route
+                  path="/add-customer"
+                  element={
+                    <AddCustomer updateCustomerList={this.updateCustomerList} />
+                  }
+                ></Route>
                 <Route
                   path="/search-results"
                   element={<SearchResults />}
