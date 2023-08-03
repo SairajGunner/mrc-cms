@@ -93,9 +93,6 @@ export default class AddCustomer extends Component {
                   <tr>
                     <td>Name:</td>
                     <td>
-                      {/* {this.props.selectedCustomer
-                        ? this.props.selectedCustomer.name
-                        : undefined} */}
                       <input
                         id="text-customer-name"
                         className="details-form-input-field"
@@ -110,9 +107,6 @@ export default class AddCustomer extends Component {
                   <tr>
                     <td>Organisation:</td>
                     <td>
-                      {/* {this.props.selectedCustomer
-                        ? this.props.selectedCustomer.organization
-                        : undefined} */}
                       <input
                         id="text-customer-org"
                         className="details-form-input-field"
@@ -127,9 +121,6 @@ export default class AddCustomer extends Component {
                   <tr>
                     <td>Customer Since:</td>
                     <td>
-                      {/* {this.props.selectedCustomer
-                        ? this.props.selectedCustomer.dateOfAssociation
-                        : undefined} */}
                       <input
                         id="text-customer-since"
                         className={"details-form-input-field"}
@@ -146,9 +137,6 @@ export default class AddCustomer extends Component {
                   <tr>
                     <td>Area of Interest:</td>
                     <td>
-                      {/* {this.props.selectedCustomer
-                        ? this.props.selectedCustomer.areaOfInterest
-                        : undefined} */}
                       <input
                         id="text-customer-since"
                         className="details-form-input-field"
