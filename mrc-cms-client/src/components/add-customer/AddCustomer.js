@@ -1,12 +1,7 @@
 import { Component } from "react";
 import "./AddCustomer.scss";
 import Accordion from "../shared/accordion/Accordion";
-import NoteBox from "../shared/note-box/NoteBox";
 import { CustomersAPI } from "../../services/customers-service.js";
-import { NotesAPI } from "../../services/notes-service.js";
-import { EngagementsAPI } from "../../services/engagements-service";
-import EngagementDisplay from "../shared/engagement-display/EngagementDisplay";
-import NoteBoxEditor from "../shared/note-box-editor/NoteBoxEditor";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
@@ -86,7 +81,7 @@ export default class AddCustomer extends Component {
             : "Adding a New Customer"}
         </h2>
         <div id="accordion-details-container">
-          <Accordion id="accordion-details" title="Details">
+          <Accordion id="accordion-details" openOnLoad={true} title="Details">
             <div className="details-holder">
               <table>
                 <tbody>
@@ -161,77 +156,9 @@ export default class AddCustomer extends Component {
             </div>
           </Accordion>
           <p id="details-instructions-text">
-            Fill in the details section to proceed.
+            Complete the form and continue editing by clicking the name from the customer list.
           </p>
         </div>
-        {/* <div id="accordion-engagements-container">
-          <Accordion id="accordion-engagements" title="Previous Engagements">
-            {this.state.engagements && this.state.engagements.length > 0 && (
-              <EngagementDisplay
-                selectEngagement={this.selectEngagement}
-                engagements={this.state.engagements}
-              ></EngagementDisplay>
-            )}
-            {this.state.selectedEngagement && (
-              <div id="engagement-box-container">
-                <div id="engagement-box-header">
-                  {this.state.selectedEngagement &&
-                    this.state.selectedEngagement.name}
-                </div>
-                <div id="engagement-box-content">
-                  <div id="engagement-box-content-dates">
-                    <div id="engagement-box-content-dates-startDate">
-                      Start Date:{" "}
-                      {this.state.selectedEngagement &&
-                        this.state.selectedEngagement.startDate}
-                    </div>
-                    <div id="engagement-box-content-dates-endDate">
-                      End Date:{" "}
-                      {this.state.selectedEngagement &&
-                        this.state.selectedEngagement.endDate}
-                    </div>
-                  </div>
-                  <div id="engagement-box-content-area-of-work">
-                    Area of Work:{" "}
-                    {this.state.selectedEngagement &&
-                      this.state.selectedEngagement.areaOfWork}
-                  </div>
-                  <div id="engagement-box-content-remarks">
-                    Remarks:{" "}
-                    {this.state.selectedEngagement &&
-                      this.state.selectedEngagement.remarks}
-                  </div>
-                </div>
-              </div>
-            )}
-            <div className="home-add-button-container">
-              <button className="btn-add">Add Engagement</button>
-            </div>
-          </Accordion>
-        </div>
-        <div id="accordion-notes-container">
-          <Accordion id="accordion-notes" title="Notes">
-            {this.state.notes.map((note, index) => {
-              return (
-                <NoteBox
-                  key={index}
-                  onEditClick={this.editNote}
-                  editCompleted={!this.state.isEditNote}
-                  note={note}
-                ></NoteBox>
-              );
-            })}
-            <NoteBoxEditor
-              customerId={
-                this.props.selectedCustomer
-                  ? this.props.selectedCustomer.id
-                  : ""
-              }
-              noteToEdit={this.state.noteBeingEdited}
-              completedEditing={this.onEditNoteComplete}
-            ></NoteBoxEditor>
-          </Accordion>
-        </div> */}
       </div>
     );
   }

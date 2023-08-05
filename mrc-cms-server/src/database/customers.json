@@ -27,8 +27,16 @@
     "id": "165f965d-d8a2-47af-aee7-223996a6025a",
     "name": "Jimmy Brooks",
     "organization": "Degrassi High",
-    "dateOfAssociation": "12-Jul-2023",
+    "dateOfAssociation": "12-Jul-2022",
     "areaOfInterest": "Level Design",
     "isProspect": false
+  },
+  {
+    "id": "f7fe7b60-4c4f-4d92-bf15-6e3bccdf4422",
+    "name": "Paige Michalchuk",
+    "organization": "Degrassi High",
+    "dateOfAssociation": "",
+    "areaOfInterest": "Virtual Reality",
+    "isProspect": true
   }
 ]

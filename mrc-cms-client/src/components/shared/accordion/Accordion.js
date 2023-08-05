@@ -15,6 +15,10 @@ export default function Accordion(props) {
   };
 
   useEffect(() => {
+    if (props.openOnLoad) setToggle(true);
+  }, [props.openOnLoad]);
+
+  useEffect(() => {
     changeHeightOfDiv();
   }, [props.children]);
 
