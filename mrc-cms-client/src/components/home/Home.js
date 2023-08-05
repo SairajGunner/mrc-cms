@@ -178,14 +178,14 @@ export default class Home extends Component {
   editNote = (note) => {
     this.setState({ isEditNote: true });
     this.setState({ noteBeingEdited: note });
-    window.scrollTo(0, document.body.scrollHeight);
+    // window.scrollTo(0, document.body.scrollHeight);
   };
 
   onEditNoteComplete = () => {
     if (this.state.isEditNote) {
       this.setState({ isEditNote: false });
       this.setState({ noteBeingEdited: undefined });
-      window.scrollTo(0, 0);
+      // window.scrollTo(0, 0);
     }
     this.getNotesByCustomerId();
   };
@@ -282,7 +282,7 @@ export default class Home extends Component {
             : undefined}
         </h2>
         <div id="accordion-details-container">
-          <Accordion id="accordion-details" title="Details">
+          <Accordion id="accordion-details" openOnLoad={true} title="Details">
             <div className="details-holder">
               <table>
                 <tbody>
@@ -387,7 +387,7 @@ export default class Home extends Component {
             </div>
           </Accordion>
         </div>
-        <div id="accordion-engagements-container">
+        {this.props.selectedCustomer && !this.props.selectedCustomer.isProspect && <div id="accordion-engagements-container">
           <Accordion id="accordion-engagements" title="Previous Engagements">
             {this.state.engagements && this.state.engagements.length > 0 && (
               <EngagementDisplay
@@ -546,7 +546,7 @@ export default class Home extends Component {
               </div>
             </div>
           </Accordion>
-        </div>
+        </div>}
         <div id="accordion-notes-container">
           <Accordion id="accordion-notes" title="Notes">
             {this.state.notes.map((note, index) => {
