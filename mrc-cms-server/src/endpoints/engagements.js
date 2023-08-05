@@ -1,6 +1,7 @@
 var express = require("express");
 var fs = require("fs");
 const path = require("path");
+var uuid = require("uuid");
 
 const router = express.Router();
 const filePath = path.join(__dirname, "../database/engagements.json");
@@ -52,7 +53,7 @@ router.get("/get/customer/:customerId", (req, res) => {
 router.post("/post", (req, res) => {
   let engagementsList = [];
   const newEngagementData = {
-    id: req.body.id,
+    id: uuid.v4(),
     customerId: req.body.customerId,
     name: req.body.name,
     startDate: req.body.startDate,
