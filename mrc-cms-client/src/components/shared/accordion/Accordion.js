@@ -10,7 +10,7 @@ export default function Accordion(props) {
 
   const changeHeightOfDiv = () => {
     if (refHeight.current) {
-      setHeightEl(`${refHeight.current.scrollHeight}px`);
+      setHeightEl(`${refHeight.current.clientHeight}px`);
     }
   };
 
@@ -20,7 +20,7 @@ export default function Accordion(props) {
 
   useEffect(() => {
     changeHeightOfDiv();
-  }, [props.children]);
+  }, [props.children, props.heightChangeControl]);
 
   const toggleState = () => {
     setToggle(!toggle);
@@ -43,6 +43,7 @@ export default function Accordion(props) {
       >
         <div
           aria-hidden={toggle ? "true" : "false"}
+          id="accordion-content"
           className="accordion-content"
           ref={refHeight}
         >

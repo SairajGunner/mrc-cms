@@ -14,6 +14,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  font-size: calc(6px + 2vmin);
 }
 
 #details-options-holder {
@@ -76,6 +77,10 @@
   cursor: pointer;
 }
 
+#engagement-edit-icon {
+  margin-right: 10px;
+}
+
 #engagement-box-content {
   display: flex;
   flex-direction: column;
@@ -105,6 +110,48 @@
 
 #textarea-engagement-remarks {
   min-width: 100%;
+}
+
+
+#engagement-box-delete-confirmation {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #143670;
+  margin: 5px 10px;
+  padding: 5px;
+  font-size: calc(2px + 2vmin);
+  font-weight: bold;
+  color: red;
+}
+
+#engagement-box-delete-confirmation-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.engagement-box-delete-confirmation-button {
+  cursor: pointer;
+  border: 1px solid #143670;
+  text-align: center;
+  margin: 0 10px;
+  padding: 0 10px;
+  min-width: 50px;
+}
+
+.engagement-box-delete-confirmation-button:hover {
+  cursor: pointer;
+  border: 1px solid red;
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  margin: 0 10px;
+  padding: 0 10px;
+  min-width: 50px;
 }
 
 #accordion-notes-container {
