@@ -81,7 +81,7 @@ export default class NoteBox extends Component {
                   icon={faBell}
                 />
               )}
-            {!this.state.isEditMode && (
+            {!this.state.isEditMode && !this.state.isDeleteInitiated && (
               <FontAwesomeIcon
                 className="note-box-icon"
                 id="note-box-pencil-icon"
@@ -89,7 +89,7 @@ export default class NoteBox extends Component {
                 onClick={() => this.editIconClick()}
               />
             )}
-            {!this.state.isEditMode && (
+            {!this.state.isEditMode && !this.state.isDeleteInitiated && (
               <FontAwesomeIcon
                 className="note-box-icon"
                 id="note-box-delete-icon"

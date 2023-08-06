@@ -35,7 +35,10 @@ export default class Home extends Component {
       editingEngagement: false,
       isEditNote: false,
       noteBeingEdited: undefined,
-      noteAccordionHeightChange: false
+      isEngagementDeleteInitiated: false,
+      detailsAccordionHeightChange: false,
+      engagementsAccordionHeightChange: false,
+      notesAccordionHeightChange: false
     };
     this.getNotesByCustomerId();
     this.getEngagementsByCustomerId();
@@ -278,7 +281,41 @@ export default class Home extends Component {
 
   changeHeightOfAccordion = () => {
     this.setState({
-      noteAccordionHeightChange: !this.state.noteAccordionHeightChange
+      notesAccordionHeightChange: !this.state.notesAccordionHeightChange
+    });
+  };
+
+  deleteEngagementInitiated = () => {
+    this.setState({
+      isEngagementDeleteInitiated: true,
+      engagementsAccordionHeightChange: true
+    });
+  };
+
+  deleteEngagement = () => {
+    EngagementsAPI.deleteEngagementById(this.state.selectedEngagement.id).then(
+      (response) => {
+        if (response.ok) {
+          this.setState(
+            {
+              isEngagementDeleteInitiated: false
+            },
+            () => {
+              this.setState({
+                selectedEngagement: undefined
+              });
+              this.getEngagementsByCustomerId();
+            }
+          );
+        }
+      }
+    );
+  };
+
+  deleteCancelled = () => {
+    this.setState({
+      isEngagementDeleteInitiated: false,
+      engagementsAccordionHeightChange: false
     });
   };
 
@@ -406,7 +443,7 @@ export default class Home extends Component {
             <div id="accordion-engagements-container">
               <Accordion
                 id="accordion-engagements"
-                heightChangeControl={false}
+                heightChangeControl={this.state.engagementsAccordionHeightChange}
                 title="Previous Engagements"
               >
                 {this.state.engagements &&
@@ -444,11 +481,33 @@ export default class Home extends Component {
                           <FontAwesomeIcon
                             id="engagement-delete-icon"
                             className="engagement-action-icon"
+                            onClick={this.deleteEngagementInitiated}
                             icon={faTrashCan}
                           />
                         )}
                       </div>
                     </div>
+                    {this.state.isEngagementDeleteInitiated && (
+                      <div id="engagement-box-delete-confirmation">
+                        <div>
+                          Are you sure you want to delete this engagement?
+                        </div>
+                        <div id="engagement-box-delete-confirmation-buttons">
+                          <div
+                            className="engagement-box-delete-confirmation-button"
+                            onClick={this.deleteEngagement}
+                          >
+                            Yes
+                          </div>
+                          <div
+                            className="engagement-box-delete-confirmation-button"
+                            onClick={this.deleteCancelled}
+                          >
+                            No
+                          </div>
+                        </div>
+                      </div>
+                    )}
                     <div id="engagement-box-content">
                       <div className="engagement-box-row">
                         <div id="engagement-box-content-dates-startDate">
@@ -579,7 +638,7 @@ export default class Home extends Component {
         <div id="accordion-notes-container">
           <Accordion
             id="accordion-notes"
-            heightChangeControl={this.state.noteAccordionHeightChange}
+            heightChangeControl={this.state.notesAccordionHeightChange}
             title="Notes"
           >
             {this.state.notes.map((note, index) => {
