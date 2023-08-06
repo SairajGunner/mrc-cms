@@ -38,12 +38,14 @@ export default class NoteBox extends Component {
     this.setState({
       isDeleteInitiated: true
     });
+    this.props.noteDeleteStateChange();
   };
 
   deleteCancelled = () => {
     this.setState({
       isDeleteInitiated: false
     });
+    this.props.noteDeleteStateChange();
   };
 
   deleteNote = () => {

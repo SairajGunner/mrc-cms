@@ -34,7 +34,8 @@ export default class Home extends Component {
       engagementRemarks: "",
       editingEngagement: false,
       isEditNote: false,
-      noteBeingEdited: undefined
+      noteBeingEdited: undefined,
+      noteAccordionHeightChange: false
     };
     this.getNotesByCustomerId();
     this.getEngagementsByCustomerId();
@@ -275,6 +276,12 @@ export default class Home extends Component {
     }
   };
 
+  changeHeightOfAccordion = () => {
+    this.setState({
+      noteAccordionHeightChange: !this.state.noteAccordionHeightChange
+    });
+  };
+
   render() {
     return (
       <div className="home-container">
@@ -287,6 +294,7 @@ export default class Home extends Component {
           <Accordion
             id="accordion-details"
             openOnLoad={true}
+            heightChangeControl={false}
             title="Details"
           >
             <div className="details-holder">
@@ -398,6 +406,7 @@ export default class Home extends Component {
             <div id="accordion-engagements-container">
               <Accordion
                 id="accordion-engagements"
+                heightChangeControl={false}
                 title="Previous Engagements"
               >
                 {this.state.engagements &&
@@ -570,6 +579,7 @@ export default class Home extends Component {
         <div id="accordion-notes-container">
           <Accordion
             id="accordion-notes"
+            heightChangeControl={this.state.noteAccordionHeightChange}
             title="Notes"
           >
             {this.state.notes.map((note, index) => {
@@ -578,6 +588,7 @@ export default class Home extends Component {
                   key={index}
                   onEditClick={this.editNote}
                   editCompleted={!this.state.isEditNote}
+                  noteDeleteStateChange={this.changeHeightOfAccordion}
                   noteDeleted={this.getNotesByCustomerId}
                   note={note}
                 ></NoteBox>

@@ -20,7 +20,7 @@ export default function Accordion(props) {
 
   useEffect(() => {
     changeHeightOfDiv();
-  }, [props.children]);
+  }, [props.children, props.heightChangeControl]);
 
   const toggleState = () => {
     setToggle(!toggle);
