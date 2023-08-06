@@ -8,7 +8,11 @@ import { EngagementsAPI } from "../../services/engagements-service";
 import EngagementDisplay from "../shared/engagement-display/EngagementDisplay";
 import NoteBoxEditor from "../shared/note-box-editor/NoteBoxEditor";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencil, faCheck } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPencil,
+  faCheck,
+  faTrashCan
+} from "@fortawesome/free-solid-svg-icons";
 
 export default class Home extends Component {
   constructor(props) {
@@ -178,14 +182,12 @@ export default class Home extends Component {
   editNote = (note) => {
     this.setState({ isEditNote: true });
     this.setState({ noteBeingEdited: note });
-    // window.scrollTo(0, document.body.scrollHeight);
   };
 
   onEditNoteComplete = () => {
     if (this.state.isEditNote) {
       this.setState({ isEditNote: false });
       this.setState({ noteBeingEdited: undefined });
-      // window.scrollTo(0, 0);
     }
     this.getNotesByCustomerId();
   };
@@ -282,7 +284,11 @@ export default class Home extends Component {
             : undefined}
         </h2>
         <div id="accordion-details-container">
-          <Accordion id="accordion-details" openOnLoad={true} title="Details">
+          <Accordion
+            id="accordion-details"
+            openOnLoad={true}
+            title="Details"
+          >
             <div className="details-holder">
               <table>
                 <tbody>
@@ -387,174 +393,192 @@ export default class Home extends Component {
             </div>
           </Accordion>
         </div>
-        {this.props.selectedCustomer && !this.props.selectedCustomer.isProspect && <div id="accordion-engagements-container">
-          <Accordion id="accordion-engagements" title="Previous Engagements">
-            {this.state.engagements && this.state.engagements.length > 0 && (
-              <EngagementDisplay
-                selectEngagement={this.selectEngagement}
-                engagements={this.state.engagements}
-              ></EngagementDisplay>
-            )}
-            {this.state.selectedEngagement && (
-              <div
-                className={
-                  this.state.editingEngagement
-                    ? "engagement-box-container-editing"
-                    : "engagement-box-container"
-                }
+        {this.props.selectedCustomer &&
+          !this.props.selectedCustomer.isProspect && (
+            <div id="accordion-engagements-container">
+              <Accordion
+                id="accordion-engagements"
+                title="Previous Engagements"
               >
-                <div className="engagement-box-header">
-                  <div>
-                    {this.state.selectedEngagement &&
-                      this.state.selectedEngagement.name}
+                {this.state.engagements &&
+                  this.state.engagements.length > 0 && (
+                    <EngagementDisplay
+                      selectEngagement={this.selectEngagement}
+                      engagements={this.state.engagements}
+                    ></EngagementDisplay>
+                  )}
+                {this.state.selectedEngagement && (
+                  <div
+                    className={
+                      this.state.editingEngagement
+                        ? "engagement-box-container-editing"
+                        : "engagement-box-container"
+                    }
+                  >
+                    <div className="engagement-box-header">
+                      <div>
+                        {this.state.selectedEngagement &&
+                          this.state.selectedEngagement.name}
+                      </div>
+                      <div>
+                        {!this.state.editingEngagement && (
+                          <FontAwesomeIcon
+                            id="engagement-edit-icon"
+                            className="engagement-action-icon"
+                            onClick={() =>
+                              this.setState({ editingEngagement: true })
+                            }
+                            icon={faPencil}
+                          />
+                        )}
+                        {!this.state.editingEngagement && (
+                          <FontAwesomeIcon
+                            id="engagement-delete-icon"
+                            className="engagement-action-icon"
+                            icon={faTrashCan}
+                          />
+                        )}
+                      </div>
+                    </div>
+                    <div id="engagement-box-content">
+                      <div className="engagement-box-row">
+                        <div id="engagement-box-content-dates-startDate">
+                          Start Date:{" "}
+                          {this.state.selectedEngagement &&
+                            this.state.selectedEngagement.startDate}
+                        </div>
+                        <div id="engagement-box-content-dates-endDate">
+                          End Date:{" "}
+                          {this.state.selectedEngagement &&
+                            this.state.selectedEngagement.endDate}
+                        </div>
+                      </div>
+                      <div className="engagement-box-row">
+                        <div id="engagement-box-content-area-of-work">
+                          Area of Work:{" "}
+                          {this.state.selectedEngagement &&
+                            this.state.selectedEngagement.areaOfWork}
+                        </div>
+                        <div id="engagement-box-content-hours-per-week">
+                          Hours per Week:{" "}
+                          {this.state.selectedEngagement &&
+                            this.state.selectedEngagement.hoursOfWork}
+                        </div>
+                      </div>
+                      <div id="engagement-box-content-remarks">
+                        Remarks:{" "}
+                        {this.state.selectedEngagement &&
+                          this.state.selectedEngagement.remarks}
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    {!this.state.editingEngagement && (
+                )}
+                <div className="engagement-box-container">
+                  <div className="engagement-box-header">
+                    <div id="engagement-edit-box-header-title-container">
+                      <input
+                        id="text-engagement-name"
+                        className="engagement-form-input-field"
+                        autoComplete="off"
+                        name="engagementName"
+                        placeholder="New Engagement Title"
+                        type="text"
+                        value={this.state.engagementName}
+                        onChange={this.updateTextBox}
+                      ></input>
+                    </div>
+                    <div>
                       <FontAwesomeIcon
-                        id="engagement-edit-icon"
+                        id="engagement-check-icon"
                         className="engagement-action-icon"
-                        onClick={() =>
-                          this.setState({ editingEngagement: true })
-                        }
-                        icon={faPencil}
+                        onClick={this.onEditEngagementComplete}
+                        icon={faCheck}
                       />
-                    )}
-                  </div>
-                </div>
-                <div id="engagement-box-content">
-                  <div className="engagement-box-row">
-                    <div id="engagement-box-content-dates-startDate">
-                      Start Date:{" "}
-                      {this.state.selectedEngagement &&
-                        this.state.selectedEngagement.startDate}
-                    </div>
-                    <div id="engagement-box-content-dates-endDate">
-                      End Date:{" "}
-                      {this.state.selectedEngagement &&
-                        this.state.selectedEngagement.endDate}
                     </div>
                   </div>
-                  <div className="engagement-box-row">
-                    <div id="engagement-box-content-area-of-work">
-                      Area of Work:{" "}
-                      {this.state.selectedEngagement &&
-                        this.state.selectedEngagement.areaOfWork}
+                  <div id="engagement-box-content">
+                    <div className="engagement-box-row">
+                      <div id="engagement-box-content-dates-startDate">
+                        <input
+                          id="text-engagement-startDate"
+                          className={"engagement-form-input-field"}
+                          autoComplete="off"
+                          name="engagementStartDate"
+                          placeholder="Start Date"
+                          type="text"
+                          value={this.state.engagementStartDate}
+                          onChange={this.updateTextBox}
+                          onBlur={this.validateDateFormat}
+                        ></input>
+                      </div>
+                      <div id="engagement-box-content-dates-endDate">
+                        <input
+                          id="text-engagement-endDate"
+                          className={"engagement-form-input-field"}
+                          autoComplete="off"
+                          name="engagementEndDate"
+                          placeholder="End Date"
+                          type="text"
+                          value={this.state.engagementEndDate}
+                          onChange={this.updateTextBox}
+                          onBlur={this.validateDateFormat}
+                        ></input>
+                      </div>
                     </div>
-                    <div id="engagement-box-content-hours-per-week">
-                      Hours per Week:{" "}
-                      {this.state.selectedEngagement &&
-                        this.state.selectedEngagement.hoursOfWork}
+                    <div className="engagement-box-row">
+                      <div id="engagement-box-content-area-of-work">
+                        <input
+                          id="text-engagement-area-of-work"
+                          className="engagement-form-input-field"
+                          autoComplete="off"
+                          name="engagementAreaOfWork"
+                          placeholder="Area of Work"
+                          type="text"
+                          value={this.state.engagementAreaOfWork}
+                          onChange={this.updateTextBox}
+                        ></input>
+                      </div>
+                      <div id="engagement-box-content-hours-per-week">
+                        <input
+                          id="text-engagement-hours-per-week"
+                          className="engagement-form-input-field"
+                          autoComplete="off"
+                          name="engagementHoursOfWork"
+                          placeholder="Hours Per Week"
+                          type="text"
+                          value={this.state.engagementHoursOfWork}
+                          onChange={this.updateTextBox}
+                        ></input>
+                      </div>
+                    </div>
+                    <div id="engagement-box-content-remarks">
+                      <textarea
+                        id="textarea-engagement-remarks"
+                        className="engagement-form-input-field"
+                        name="engagementRemarks"
+                        rows={3}
+                        placeholder="Remarks regarding the engagement can go here."
+                        onChange={this.updateTextBox}
+                        value={this.state.engagementRemarks}
+                      ></textarea>
                     </div>
                   </div>
-                  <div id="engagement-box-content-remarks">
-                    Remarks:{" "}
-                    {this.state.selectedEngagement &&
-                      this.state.selectedEngagement.remarks}
-                  </div>
                 </div>
-              </div>
-            )}
-            <div className="engagement-box-container">
-              <div className="engagement-box-header">
-                <div id="engagement-edit-box-header-title-container">
-                  <input
-                    id="text-engagement-name"
-                    className="engagement-form-input-field"
-                    autoComplete="off"
-                    name="engagementName"
-                    placeholder="New Engagement Title"
-                    type="text"
-                    value={this.state.engagementName}
-                    onChange={this.updateTextBox}
-                  ></input>
-                </div>
-                <div>
-                  <FontAwesomeIcon
-                    id="engagement-check-icon"
-                    className="engagement-action-icon"
-                    onClick={this.onEditEngagementComplete}
-                    icon={faCheck}
-                  />
-                </div>
-              </div>
-              <div id="engagement-box-content">
-                <div className="engagement-box-row">
-                  <div id="engagement-box-content-dates-startDate">
-                    <input
-                      id="text-engagement-startDate"
-                      className={"engagement-form-input-field"}
-                      autoComplete="off"
-                      name="engagementStartDate"
-                      placeholder="Start Date"
-                      type="text"
-                      value={this.state.engagementStartDate}
-                      onChange={this.updateTextBox}
-                      onBlur={this.validateDateFormat}
-                    ></input>
-                  </div>
-                  <div id="engagement-box-content-dates-endDate">
-                    <input
-                      id="text-engagement-endDate"
-                      className={"engagement-form-input-field"}
-                      autoComplete="off"
-                      name="engagementEndDate"
-                      placeholder="End Date"
-                      type="text"
-                      value={this.state.engagementEndDate}
-                      onChange={this.updateTextBox}
-                      onBlur={this.validateDateFormat}
-                    ></input>
-                  </div>
-                </div>
-                <div className="engagement-box-row">
-                  <div id="engagement-box-content-area-of-work">
-                    <input
-                      id="text-engagement-area-of-work"
-                      className="engagement-form-input-field"
-                      autoComplete="off"
-                      name="engagementAreaOfWork"
-                      placeholder="Area of Work"
-                      type="text"
-                      value={this.state.engagementAreaOfWork}
-                      onChange={this.updateTextBox}
-                    ></input>
-                  </div>
-                  <div id="engagement-box-content-hours-per-week">
-                    <input
-                      id="text-engagement-hours-per-week"
-                      className="engagement-form-input-field"
-                      autoComplete="off"
-                      name="engagementHoursOfWork"
-                      placeholder="Hours Per Week"
-                      type="text"
-                      value={this.state.engagementHoursOfWork}
-                      onChange={this.updateTextBox}
-                    ></input>
-                  </div>
-                </div>
-                <div id="engagement-box-content-remarks">
-                  <textarea
-                    id="textarea-engagement-remarks"
-                    className="engagement-form-input-field"
-                    name="engagementRemarks"
-                    rows={3}
-                    placeholder="Remarks regarding the engagement can go here."
-                    onChange={this.updateTextBox}
-                    value={this.state.engagementRemarks}
-                  ></textarea>
-                </div>
-              </div>
+              </Accordion>
             </div>
-          </Accordion>
-        </div>}
+          )}
         <div id="accordion-notes-container">
-          <Accordion id="accordion-notes" title="Notes">
+          <Accordion
+            id="accordion-notes"
+            title="Notes"
+          >
             {this.state.notes.map((note, index) => {
               return (
                 <NoteBox
                   key={index}
                   onEditClick={this.editNote}
                   editCompleted={!this.state.isEditNote}
+                  noteDeleted={this.getNotesByCustomerId}
                   note={note}
                 ></NoteBox>
               );

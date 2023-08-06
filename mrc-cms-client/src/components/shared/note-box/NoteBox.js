@@ -1,13 +1,19 @@
 import { Component } from "react";
 import "./NoteBox.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell, faPencil } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBell,
+  faPencil,
+  faTrashCan
+} from "@fortawesome/free-solid-svg-icons";
+import { NotesAPI } from "../../../services/notes-service";
 
 export default class NoteBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isEditMode: false
+      isEditMode: false,
+      isDeleteInitiated: false
     };
   }
 
@@ -16,7 +22,7 @@ export default class NoteBox extends Component {
       if (this.props.editCompleted) {
         this.setState({
           isEditMode: false
-        })
+        });
       }
     }
   }
@@ -26,6 +32,29 @@ export default class NoteBox extends Component {
       isEditMode: true
     });
     this.props.onEditClick(this.props.note);
+  };
+
+  deleteInitiated = () => {
+    this.setState({
+      isDeleteInitiated: true
+    });
+  };
+
+  deleteCancelled = () => {
+    this.setState({
+      isDeleteInitiated: false
+    });
+  };
+
+  deleteNote = () => {
+    NotesAPI.deleteNoteById(this.props.note.id).then((response) => {
+      if (response.ok) {
+        this.setState({
+          isDeleteInitiated: false
+        });
+        this.props.noteDeleted();
+      }
+    });
   };
 
   render() {
@@ -50,15 +79,44 @@ export default class NoteBox extends Component {
                   icon={faBell}
                 />
               )}
-            <FontAwesomeIcon
-              className="note-box-icon"
-              id="note-box-pencil-icon"
-              icon={faPencil}
-              onClick={() => this.editIconClick()}
-            />
+            {!this.state.isEditMode && (
+              <FontAwesomeIcon
+                className="note-box-icon"
+                id="note-box-pencil-icon"
+                icon={faPencil}
+                onClick={() => this.editIconClick()}
+              />
+            )}
+            {!this.state.isEditMode && (
+              <FontAwesomeIcon
+                className="note-box-icon"
+                id="note-box-delete-icon"
+                icon={faTrashCan}
+                onClick={this.deleteInitiated}
+              />
+            )}
             {this.props.note.date}
           </div>
         </div>
+        {this.state.isDeleteInitiated && (
+          <div id="note-box-delete-confirmation">
+            <div>Are you sure you want to delete this note?</div>
+            <div id="note-box-delete-confirmation-buttons">
+              <div
+                className="note-box-delete-confirmation-button"
+                onClick={this.deleteNote}
+              >
+                Yes
+              </div>
+              <div
+                className="note-box-delete-confirmation-button"
+                onClick={this.deleteCancelled}
+              >
+                No
+              </div>
+            </div>
+          </div>
+        )}
         <div className="note-box-content">
           <p>{this.props.note.content}</p>
         </div>

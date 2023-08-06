@@ -5,6 +5,7 @@
   justify-content: center;
   min-width: 100%;
   max-width: 100%;
+  font-size: calc(4px + 2vmin);
 }
 
 #engagement-display-table table {
@@ -41,9 +42,9 @@
 }
 
 .selected-engagement {
-    cursor: pointer;
-    color: #143670;
-    font-weight: bold;
+  cursor: pointer;
+  color: #143670;
+  font-weight: bold;
 }
 
 #engagement-display-table tbody tr:nth-child(odd) {
