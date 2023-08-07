@@ -14,11 +14,12 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  font-size: calc(6px + 2vmin);
+  font-size: calc(4px + 2vmin);
 }
 
 #details-options-holder {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   min-width: 30%;
@@ -34,7 +35,44 @@
 }
 
 .details-action-icon {
+  margin: 0 10px;
   cursor: pointer;
+}
+
+#customer-delete-confirmation {
+  width: 80%;
+  border-radius: 10px;
+  margin-top: 10px;
+  background-color: white;
+  color: red;
+}
+
+#customer-delete-confirmation-message {
+  padding: 10px 25px;
+}
+
+#customer-delete-confirmation-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  padding-bottom: 20px;
+}
+
+.customer-delete-confirmation-button {
+  cursor: pointer;
+  text-align: center;
+  border: 1px solid red;
+  min-width: 100px;
+}
+
+.customer-delete-confirmation-button:hover {
+  cursor: pointer;
+  text-align: center;
+  border: 1px solid red;
+  color: white;
+  background-color: red;
+  min-width: 100px;
 }
 
 #accordion-engagements-container {

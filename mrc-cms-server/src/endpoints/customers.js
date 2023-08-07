@@ -5,6 +5,11 @@ var uuid = require("uuid");
 
 const router = express.Router();
 const filePath = path.join(__dirname, "../database/customers.json");
+const engagementsFilePath = path.join(
+  __dirname,
+  "../database/engagements.json"
+);
+const notesFilePath = path.join(__dirname, "../database/notes.json");
 
 router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
@@ -85,17 +90,38 @@ router.put("/update/:id", (req, res) => {
 // Delete customer by ID
 router.delete("/delete/:id", (req, res) => {
   let customerList = [];
+  let engagementsList = [];
+  let notesList = [];
 
   fs.readFile(filePath, "utf-8", (err, data) => {
     customerList = JSON.parse(data);
-    customerList.splice([
-      customerList.findIndex((customer) => customer.id == req.params.id)
-    ]);
+    customerList.splice(
+      customerList.findIndex((customer) => customer.id == req.params.id),
+      1
+    );
 
-    fs.writeFileSync(filePath, JSON.stringify(customerList), "utf-8");
+    fs.readFile(engagementsFilePath, "utf-8", (err, engagementsData) => {
+      engagementsList = JSON.parse(engagementsData);
+      engagementsList = engagementsList.filter(
+        (engagement) => engagement.customerId !== req.params.id
+      );
+      fs.readFile(notesFilePath, "utf-8", (err, notesData) => {
+        notesList = JSON.parse(notesData);
+        notesList = notesList.filter(
+          (note) => note.customerId !== req.params.id
+        );
+        fs.writeFileSync(filePath, JSON.stringify(customerList), "utf-8");
+        fs.writeFileSync(
+          engagementsFilePath,
+          JSON.stringify(engagementsList),
+          "utf-8"
+        );
+        fs.writeFileSync(notesFilePath, JSON.stringify(notesList), "utf-8");
 
-    res.setHeader("Content-Type", "application/json");
-    res.end("Customer deleted!");
+        res.setHeader("Content-Type", "application/json");
+        res.end("Customer deleted!");
+      });
+    });
   });
 });
 

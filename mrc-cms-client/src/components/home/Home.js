@@ -38,7 +38,9 @@ export default class Home extends Component {
       isEngagementDeleteInitiated: false,
       detailsAccordionHeightChange: false,
       engagementsAccordionHeightChange: false,
-      notesAccordionHeightChange: false
+      notesAccordionHeightChange: false,
+      isCustomerDeleteInitiated: false,
+      customerDeleted: false
     };
     this.getNotesByCustomerId();
     this.getEngagementsByCustomerId();
@@ -51,10 +53,20 @@ export default class Home extends Component {
         engagements: this.state.engagements,
         selectedEngagement: undefined,
         isEditNote: false,
-        noteBeingEdited: undefined
+        noteBeingEdited: undefined,
+        isCustomerDeleteInitiated: false,
+        customerDeleted: false
       });
       this.getNotesByCustomerId();
       this.getEngagementsByCustomerId();
+      [
+        "accordion-details-container",
+        "accordion-engagements-container",
+        "accordion-notes-container"
+      ].forEach((elementId) => {
+        if (document.getElementById(elementId) && this.props.selectedCustomer)
+          document.getElementById(elementId).style.visibility = "visible";
+      });
     }
     if (previousState.editingEngagement !== this.state.editingEngagement) {
       if (this.state.editingEngagement && this.state.selectedEngagement) {
@@ -319,6 +331,39 @@ export default class Home extends Component {
     });
   };
 
+  initiateCustomerDelete = () => {
+    this.setState({
+      isCustomerDeleteInitiated: true
+    });
+  };
+
+  deleteCustomer = () => {
+    CustomersAPI.deleteCustomerById(this.props.selectedCustomer.id).then(
+      (response) => {
+        if (response.ok) {
+          this.props.updateCustomerList();
+          [
+            "accordion-details-container",
+            "accordion-engagements-container",
+            "accordion-notes-container"
+          ].forEach((elementId) => {
+            if (document.getElementById(elementId))
+              document.getElementById(elementId).style.visibility = "hidden";
+          });
+          this.setState({
+            customerDeleted: true
+          });
+        }
+      }
+    );
+  };
+
+  customerDeleteCancelled = () => {
+    this.setState({
+      isCustomerDeleteInitiated: false
+    });
+  };
+
   render() {
     return (
       <div className="home-container">
@@ -418,14 +463,23 @@ export default class Home extends Component {
                 </tbody>
               </table>
               <div id="details-options-holder">
-                {!this.state.editingDetails && (
-                  <FontAwesomeIcon
-                    id="details-edit-icon"
-                    className="details-action-icon fa-2x"
-                    onClick={this.editDetails}
-                    icon={faPencil}
-                  />
-                )}
+                {!this.state.editingDetails &&
+                  !this.state.isCustomerDeleteInitiated && (
+                    <div id="details-options-holder-not-editing">
+                      <FontAwesomeIcon
+                        id="details-edit-icon"
+                        className="details-action-icon fa-2x"
+                        onClick={this.editDetails}
+                        icon={faPencil}
+                      />
+                      <FontAwesomeIcon
+                        id="details-delete-icon"
+                        className="details-action-icon fa-2x"
+                        onClick={this.initiateCustomerDelete}
+                        icon={faTrashCan}
+                      />
+                    </div>
+                  )}
                 {this.state.editingDetails && (
                   <FontAwesomeIcon
                     id="details-completed-icon"
@@ -438,12 +492,54 @@ export default class Home extends Component {
             </div>
           </Accordion>
         </div>
+        {this.state.isCustomerDeleteInitiated && (
+          <div id="customer-delete-confirmation">
+            {!this.state.customerDeleted && (
+              <div>
+                <div id="customer-delete-confirmation-message">
+                  <p>
+                    Deleting a customer will <b>permanently delete</b> the{" "}
+                    <b>customer</b> and all associated <b>engagements</b> and{" "}
+                    <b>notes</b>.
+                  </p>
+                  <p>Are you sure you want to proceed?</p>
+                </div>
+                <div id="customer-delete-confirmation-buttons">
+                  <div
+                    className="customer-delete-confirmation-button"
+                    onClick={this.deleteCustomer}
+                  >
+                    Yes
+                  </div>
+                  <div
+                    className="customer-delete-confirmation-button"
+                    onClick={this.customerDeleteCancelled}
+                  >
+                    No
+                  </div>
+                </div>
+              </div>
+            )}
+            {this.state.customerDeleted && (
+              <div id="customer-delete-confirmation-message">
+                <p>
+                  <b>
+                    This customer has been deleted. Please select another
+                    customer.
+                  </b>
+                </p>
+              </div>
+            )}
+          </div>
+        )}
         {this.props.selectedCustomer &&
           !this.props.selectedCustomer.isProspect && (
             <div id="accordion-engagements-container">
               <Accordion
                 id="accordion-engagements"
-                heightChangeControl={this.state.engagementsAccordionHeightChange}
+                heightChangeControl={
+                  this.state.engagementsAccordionHeightChange
+                }
                 title="Previous Engagements"
               >
                 {this.state.engagements &&
@@ -467,24 +563,26 @@ export default class Home extends Component {
                           this.state.selectedEngagement.name}
                       </div>
                       <div>
-                        {!this.state.editingEngagement && (
-                          <FontAwesomeIcon
-                            id="engagement-edit-icon"
-                            className="engagement-action-icon"
-                            onClick={() =>
-                              this.setState({ editingEngagement: true })
-                            }
-                            icon={faPencil}
-                          />
-                        )}
-                        {!this.state.editingEngagement && (
-                          <FontAwesomeIcon
-                            id="engagement-delete-icon"
-                            className="engagement-action-icon"
-                            onClick={this.deleteEngagementInitiated}
-                            icon={faTrashCan}
-                          />
-                        )}
+                        {!this.state.editingEngagement &&
+                          !this.state.isEngagementDeleteInitiated && (
+                            <FontAwesomeIcon
+                              id="engagement-edit-icon"
+                              className="engagement-action-icon"
+                              onClick={() =>
+                                this.setState({ editingEngagement: true })
+                              }
+                              icon={faPencil}
+                            />
+                          )}
+                        {!this.state.editingEngagement &&
+                          !this.state.isEngagementDeleteInitiated && (
+                            <FontAwesomeIcon
+                              id="engagement-delete-icon"
+                              className="engagement-action-icon"
+                              onClick={this.deleteEngagementInitiated}
+                              icon={faTrashCan}
+                            />
+                          )}
                       </div>
                     </div>
                     {this.state.isEngagementDeleteInitiated && (
