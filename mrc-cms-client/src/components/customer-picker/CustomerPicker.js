@@ -33,11 +33,13 @@ export default class CustomerPicker extends Component {
           () => {
             this.props.setCustomersInApp(this.state.customers);
             if (callingCondition === "updating") {
-              this.selectCustomer(
-                this.state.customers.find(
-                  (customer) => customer.id === this.state.selectedCustomer.id
-                )
-              );
+              if (this.state.selectedCustomer) {
+                this.selectCustomer(
+                  this.state.customers.find(
+                    (customer) => customer.id === this.state.selectedCustomer.id
+                  )
+                );
+              }
             }
           }
         );
