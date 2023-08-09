@@ -14,7 +14,9 @@ export default class App extends Component {
     this.state = {
       customers: [],
       selectedCustomer: undefined,
-      updateCustomers: false
+      updateCustomers: false,
+      searchQuery: "",
+      triggerSearchRender: false
     };
   }
 
@@ -37,10 +39,20 @@ export default class App extends Component {
     });
   };
 
+  setQuery = (query) => {
+    this.setState({ searchQuery: query, triggerSearchRender: true }, () => {
+      setTimeout(() => {
+        this.setState({
+          triggerSearchRender: false
+        });
+      }, 500);
+    });
+  };
+
   render() {
     return (
       <div className="app-container">
-        <Header></Header>
+        <Header setQuery={this.setQuery}></Header>
         <hr></hr>
         <div className="app-content-container">
           <div className="app-customer-picker">
@@ -74,7 +86,12 @@ export default class App extends Component {
                 ></Route>
                 <Route
                   path="/search-results"
-                  element={<SearchResults />}
+                  element={
+                    <SearchResults
+                      query={this.state.searchQuery}
+                      triggerSearch={this.state.triggerSearchRender}
+                    />
+                  }
                 ></Route>
               </Routes>
             </main>
