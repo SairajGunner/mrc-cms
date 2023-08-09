@@ -90,6 +90,7 @@ export default class App extends Component {
                     <SearchResults
                       query={this.state.searchQuery}
                       triggerSearch={this.state.triggerSearchRender}
+                      customers={this.state.customers}
                     />
                   }
                 ></Route>
