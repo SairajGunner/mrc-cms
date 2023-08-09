@@ -120,8 +120,7 @@ export default class Home extends Component {
   };
 
   validateDateFormat = (e) => {
-    const datePattern =
-      /^(0[1-9]|[12][0-9]|3[01])-(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)-\d{4}$|^$/;
+    const datePattern = /^\d{4}-\d{2}-\d{2}$|^$/;
 
     if (e.target) {
       datePattern.test(e.target.value)

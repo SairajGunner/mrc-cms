@@ -130,13 +130,7 @@ export default class NoteBoxEditor extends Component {
       NotesAPI.addNewNote({
         customerId: this.props.customerId,
         title: this.state.title,
-        date: new Date()
-          .toLocaleDateString("en-GB", {
-            day: "numeric",
-            month: "short",
-            year: "numeric"
-          })
-          .replace(/ /g, "-"),
+        date: new Date().toLocaleDateString("en-CA"),
         content: this.state.content,
         hasReminders: reminders,
         isCompleted: false
@@ -183,13 +177,7 @@ export default class NoteBoxEditor extends Component {
             {(() =>
               this.props.noteToEdit
                 ? new Date(this.props.noteToEdit.date)
-                : new Date())()
-              .toLocaleDateString("en-GB", {
-                day: "numeric",
-                month: "short",
-                year: "numeric"
-              })
-              .replace(/ /g, "-")}
+                : new Date())().toLocaleDateString("en-CA")}
           </div>
         </div>
         <div className="note-box-edit-content">

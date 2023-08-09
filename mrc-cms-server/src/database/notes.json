@@ -3,7 +3,7 @@
     "id": "90753f0d-3338-4f74-bfe7-2f792251689c",
     "customerId": "dd8d55b1-a188-40aa-9bde-7475b75eb084",
     "title": "Catch-up on New Project",
-    "date": "15-Jun-2023",
+    "date": "2023-06-15",
     "content": "The conversations went well and now Ricardo is waiting for the funding to be signed off before the project is started.",
     "hasReminders": [1, 12],
     "isCompleted": false
@@ -12,7 +12,7 @@
     "id": "90753f0d-4338-4f74-bfe7-2f792251689c",
     "customerId": "dd8d55b2-a188-40aa-9bde-7475b75eb084",
     "title": "Het Leven van Denis - Kick-off",
-    "date": "20-Apr-2023",
+    "date": "2023-04-20",
     "content": "The project has been officially kicked-off. The teams have started their activities and there needs to be a format report in place in 3 months time.",
     "hasReminders": [3],
     "isCompleted": true
@@ -21,7 +21,7 @@
     "id": "90753f0d-5338-4f74-bfe7-2f792251689c",
     "customerId": "dd8d55b3-a188-40aa-9bde-7475b75eb084",
     "title": "Discussion with Jason Giles",
-    "date": "21-Jul-2023",
+    "date": "2023-07-21",
     "content": "Had a discussion with Jason about the services offered by the MRC Studio and Jason seemed to be impressed. Jason will be reaching out after conversations with his team-members.",
     "hasReminders": [1],
     "isCompleted": true
@@ -30,7 +30,7 @@
     "id": "90753f0d-5338-4f74-bfe7-2f792251689c",
     "customerId": "dd8d55b3-a188-40aa-9bde-7475b75eb084",
     "title": "Second Discussion with Jason Giles",
-    "date": "23-Jul-2023",
+    "date": "2023-07-23",
     "content": "Had a second discussion with Jason. He will be reaching out after conversations with his team-members.",
     "hasReminders": [],
     "isCompleted": false
@@ -39,7 +39,7 @@
     "id": "aa6f558d-e1fd-4441-a04c-c2d63f6c437c",
     "customerId": "f7fe7b60-4c4f-4d92-bf15-6e3bccdf4422",
     "title": "Note for Paige",
-    "date": "7-Aug-2023",
+    "date": "2023-08-07",
     "content": "",
     "hasReminders": [1],
     "isCompleted": false
@@ -48,7 +48,7 @@
     "id": "492cb86f-f646-4ffe-a9ea-141465458873",
     "customerId": "dd8d55b2-a188-40aa-9bde-7475b75eb084",
     "title": "New Meeting with Jurrien",
-    "date": "7-Aug-2023",
+    "date": "2023-08-07",
     "content": "Discussion on new project progress.",
     "hasReminders": [],
     "isCompleted": false
@@ -57,7 +57,7 @@
     "id": "5d60a76b-c0c1-420f-8e29-0f13d9e68919",
     "customerId": "dd8d55b1-a188-40aa-9bde-7475b75eb084",
     "title": "Quick Note",
-    "date": "7-Aug-2023",
+    "date": "2023-08-07",
     "content": "",
     "hasReminders": [1],
     "isCompleted": false
@@ -66,7 +66,7 @@
     "id": "c307c826-77a5-4cac-b6a4-c9dc9c5ddb3f",
     "customerId": "f7fe7b60-4c4f-4d92-bf15-6e3bccdf4422",
     "title": "Second Quick Note",
-    "date": "7-Aug-2023",
+    "date": "2023-08-07",
     "content": "Note",
     "hasReminders": [],
     "isCompleted": false
