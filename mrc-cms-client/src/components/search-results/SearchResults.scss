@@ -1,0 +1,67 @@
+#search-results-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 80%;
+}
+
+.accordion-container {
+  min-width: 100%;
+}
+
+h2 {
+  margin-top: 2.5px;
+}
+
+.customer-details,
+.engagement-details,
+.note-details {
+  min-width: 100%;
+  border: 1px solid white;
+  border-radius: 10px;
+  background-color: white;
+  color: #143670;
+  font-size: calc(4px + 2vmin);
+  margin-bottom: 10px;
+  padding: 10px 0;
+}
+
+.customer-details-title,
+.engagement-details-title,
+.note-details-title {
+  font-size: calc(6px + 2vmin);
+  font-weight: bold;
+  text-align: center;
+}
+
+.customer-details-content,
+.engagement-details-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.note-details-content {
+  margin: 5px 10px;
+}
+
+.customer-details-subscript,
+.engagement-details-subscript,
+.note-details-subscript {
+  text-align: center;
+  font-size: calc(2px + 2vmin);
+  padding-top: 5px;
+}
+
+.note-not-complete-text {
+  color: darkred;
+}
+
+.note-complete-text {
+  color: green;
+}
+
+#notes-results {
+  margin-bottom: 5px;
+}

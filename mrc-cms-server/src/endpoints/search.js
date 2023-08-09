@@ -24,7 +24,12 @@ router.get("/:query", (req, res) => {
     customerList.forEach((customer) => {
       for (let key in customer) {
         if (customer.hasOwnProperty(key)) {
-          if (customer[key].toString().indexOf(req.params.query) > -1) {
+          if (
+            customer[key]
+              .toString()
+              .toLowerCase()
+              .indexOf(req.params.query.toLowerCase()) > -1
+          ) {
             customersSearchResults.push(customer);
             break;
           } else {
@@ -39,7 +44,12 @@ router.get("/:query", (req, res) => {
       engagementsList.forEach((engagement) => {
         for (let key in engagement) {
           if (engagement.hasOwnProperty(key)) {
-            if (engagement[key].toString().indexOf(req.params.query) > -1) {
+            if (
+              engagement[key]
+                .toString()
+                .toLowerCase()
+                .indexOf(req.params.query.toLowerCase()) > -1
+            ) {
               engagementsSearchResults.push(engagement);
               break;
             } else {
@@ -53,7 +63,12 @@ router.get("/:query", (req, res) => {
         notesList.forEach((note) => {
           for (let key in note) {
             if (note.hasOwnProperty(key)) {
-              if (note[key].toString().indexOf(req.params.query) > -1) {
+              if (
+                note[key]
+                  .toString()
+                  .toLowerCase()
+                  .indexOf(req.params.query.toLowerCase()) > -1
+              ) {
                 notesSearchResults.push(note);
                 break;
               } else {
