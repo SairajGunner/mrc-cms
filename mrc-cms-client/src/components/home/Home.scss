@@ -41,6 +41,7 @@
 
 #customer-delete-confirmation {
   width: 80%;
+  border: 2px solid red;
   border-radius: 10px;
   margin-top: 10px;
   background-color: white;
@@ -64,6 +65,7 @@
   text-align: center;
   border: 1px solid red;
   min-width: 100px;
+  font-weight: bold;
 }
 
 .customer-delete-confirmation-button:hover {
@@ -73,6 +75,7 @@
   color: white;
   background-color: red;
   min-width: 100px;
+  font-weight: bold;
 }
 
 #accordion-engagements-container {
