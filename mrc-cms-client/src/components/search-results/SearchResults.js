@@ -108,7 +108,10 @@ export default class SearchResults extends Component {
                       className="engagement-details"
                     >
                       <div className="engagement-details-title">
-                        {engagement.name} {!engagement.endDate && "(On-going)"}
+                        {engagement.name}{" "}
+                        {`(${this.props.customers.find(
+                          (customer) => customer.id === engagement.customerId
+                        ).name})`}
                       </div>
                       {engagement.endDate && (
                         <div className="engagement-details-subscript">
@@ -118,7 +121,8 @@ export default class SearchResults extends Component {
                       )}
                       {!engagement.endDate && (
                         <div className="engagement-details-subscript">
-                          This engagement started on {engagement.startDate}
+                          This engagement started on {engagement.startDate} and
+                          is on-going.
                         </div>
                       )}
                       <div className="engagement-details-content">
@@ -161,6 +165,14 @@ export default class SearchResults extends Component {
                       </div>
                     )}
                     <div className="note-details-content">
+                      <div>
+                        Customer Name:{" "}
+                        {
+                          this.props.customers.find(
+                            (customer) => customer.id === note.customerId
+                          ).name
+                        }
+                      </div>
                       {note.content}
                     </div>
                   </div>
