@@ -93,6 +93,33 @@
   cursor: pointer;
 }
 
+.note-box-edit-custom-reminder-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.note-box-edit-custom-reminder-label {
+  font-weight: bold;
+}
+
+.note-box-edit-custom-reminder-textbox {
+  margin-left: 20px;
+  max-width: 125px;
+  font-size: calc(4px + 2vmin);
+  color: #143670;
+}
+
+.note-box-edit-completed-label {
+  margin: 0 20px 0 30px;
+  font-weight: bold;
+}
+
+.note-box-edit-completed-checkbox {
+  cursor: pointer;
+}
+
 .note-box-edit-content {
   padding-left: 10px;
   padding-right: 10px;
@@ -108,4 +135,8 @@
 p {
   margin-top: 5px;
   margin-bottom: 5px;
+}
+
+.field-validation {
+  color: red !important;
 }

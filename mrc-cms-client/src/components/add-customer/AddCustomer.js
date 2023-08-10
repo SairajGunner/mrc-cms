@@ -30,8 +30,7 @@ export default class AddCustomer extends Component {
   };
 
   validateDateFormat = (e) => {
-    const datePattern =
-      /^(0[1-9]|[12][0-9]|3[01])-(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)-\d{4}$|^$/;
+    const datePattern = /^\d{4}-\d{2}-\d{2}$|^$/;
 
     if (e.target) {
       datePattern.test(e.target.value)
@@ -68,7 +67,7 @@ export default class AddCustomer extends Component {
       });
     } else {
       document.getElementById("details-instructions-text").innerText =
-        "Please enter date in the format DD-MMM-YYYY";
+        "Please enter date in the format YYYY-MM-DD";
     }
   };
 
@@ -156,7 +155,8 @@ export default class AddCustomer extends Component {
             </div>
           </Accordion>
           <p id="details-instructions-text">
-            Complete the form and continue editing by clicking the name from the customer list.
+            Complete the form and continue editing by clicking the name from the
+            customer list.
           </p>
         </div>
       </div>

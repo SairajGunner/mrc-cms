@@ -10,7 +10,8 @@ export default class Notifications extends Component {
       oneYearNotifications: [],
       sixMonthNotifications: [],
       threeMonthNotifications: [],
-      oneMonthNotifications: []
+      oneMonthNotifications: [],
+      customReminderNotifications: []
     };
     this.getAllNotes();
   }
@@ -25,14 +26,15 @@ export default class Notifications extends Component {
         if (data.length > 0) {
           allActiveNotes = data.filter(
             (note) =>
-              note.hasReminders &&
-              note.hasReminders.length > 0 &&
+              ((note.hasReminders && note.hasReminders.length > 0) ||
+                note.customReminder) &&
               !note.isCompleted
           );
           this.setOneYearNotifications(allActiveNotes);
           this.setSixMonthNotifications(allActiveNotes);
           this.setThreeMonthNotifications(allActiveNotes);
           this.setOneMonthNotifications(allActiveNotes);
+          this.setCustomReminderNotifications(allActiveNotes);
         }
       });
   };
@@ -87,6 +89,15 @@ export default class Notifications extends Component {
       .filter((note) => this.compareDates(note.date, 1));
     this.setState({
       oneMonthNotifications: requiredNotes
+    });
+  };
+
+  setCustomReminderNotifications = (allActiveNotes) => {
+    let requiredNotes = allActiveNotes
+      .filter((note) => note.customReminder)
+      .filter((note) => new Date() >= new Date(note.customReminder));
+    this.setState({
+      customReminderNotifications: requiredNotes
     });
   };
 
@@ -173,6 +184,28 @@ export default class Notifications extends Component {
             <div className="notification-section">
               <h5>One Month Reminders</h5>
               {this.state.oneMonthNotifications.map((note) => {
+                return (
+                  <NotificationBox
+                    key={note.id}
+                    note={note}
+                    noteCompleted={this.noteCompleted}
+                    customerName={
+                      this.props.customers && this.props.customers.length > 0
+                        ? this.props.customers.find(
+                            (customer) => customer.id === note.customerId
+                          ).name
+                        : ""
+                    }
+                  ></NotificationBox>
+                );
+              })}
+            </div>
+          )}
+        {this.state.customReminderNotifications &&
+          this.state.customReminderNotifications.length > 0 && (
+            <div className="notification-section">
+              <h5>Custom Reminders</h5>
+              {this.state.customReminderNotifications.map((note) => {
                 return (
                   <NotificationBox
                     key={note.id}
