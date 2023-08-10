@@ -47,10 +47,17 @@ export default class CustomerPicker extends Component {
   };
 
   selectCustomer = (customer) => {
-    this.setState({
-      customers: this.state.customers,
-      selectedCustomer: customer
-    });
+    this.setState(
+      {
+        customers: this.state.customers,
+        selectedCustomer: customer
+      },
+      () => {
+        if (window.location.pathname !== "/") {
+          document.getElementById("header-home-navlink").click();
+        }
+      }
+    );
     this.props.selectCustomer(customer);
   };
 

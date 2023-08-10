@@ -29,35 +29,38 @@ export default class Header extends Component {
       <div className="header-container">
         <div className="header-icons">
           <NavLink
+            id="header-home-navlink"
             to={"/"}
             className={(status) => {
               return status.isActive ? "icon-selected" : "icon";
             }}
           >
             <div className="header-home-container">
-              <FontAwesomeIcon icon={faHouse} />
+              <FontAwesomeIcon id="header-home" icon={faHouse} />
             </div>
           </NavLink>
 
           <NavLink
+            id="header-add-customer-navlink"
             to={"/add-customer"}
             className={(status) => {
               return status.isActive ? "icon-selected" : "icon";
             }}
           >
             <div className="header-customers-container">
-              <FontAwesomeIcon icon={faUserPlus} />
+              <FontAwesomeIcon id="header-add-customer" icon={faUserPlus} />
             </div>
           </NavLink>
         </div>
         <div className="header-search">
           <div className="header-search-text-container">Search</div>
           <div className="header-search-bar-container">
-            <NavLink to={"/search-results"}>
+            <NavLink id="header-search-results-navlink" to={"/search-results"}>
               <input
                 id="searchInput"
                 name="searchInput"
                 type="text"
+                autoComplete="off"
                 placeholder="Search customers, engagements and notes"
                 value={this.state.searchInput}
                 onChange={this.setQueryText}
