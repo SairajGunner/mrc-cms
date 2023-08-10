@@ -73,6 +73,7 @@ router.post("/post", (req, res) => {
     date: req.body.date,
     content: req.body.content,
     hasReminders: req.body.hasReminders.filter((reminder) => reminder != null),
+    customReminder: req.body.customReminder,
     isCompleted: req.body.isCompleted
   };
 
@@ -98,6 +99,7 @@ router.put("/update/:id", (req, res) => {
     date: req.body.date,
     content: req.body.content,
     hasReminders: req.body.hasReminders.filter((reminder) => reminder != null),
+    customReminder: req.body.customReminder,
     isCompleted: req.body.isCompleted
   };
 

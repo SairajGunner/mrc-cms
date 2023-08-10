@@ -13,6 +13,8 @@ export default class NoteBoxEditor extends Component {
       threeMonthReminder: false,
       sixMonthReminder: false,
       oneYearReminder: false,
+      customReminder: "",
+      isCompleted: false,
       content: ""
     };
   }
@@ -38,6 +40,8 @@ export default class NoteBoxEditor extends Component {
             this.props.noteToEdit.hasReminders.findIndex(
               (reminder) => reminder === 12
             ) > -1,
+          customReminder: this.props.noteToEdit.customReminder,
+          isCompleted: this.props.noteToEdit.isCompleted,
           content: this.props.noteToEdit.content
         });
       } else {
@@ -47,6 +51,8 @@ export default class NoteBoxEditor extends Component {
           threeMonthReminder: false,
           sixMonthReminder: false,
           oneYearReminder: false,
+          customReminder: "",
+          isCompleted: false,
           content: ""
         });
       }
@@ -100,57 +106,88 @@ export default class NoteBoxEditor extends Component {
     if (this.state.sixMonthReminder) reminders[2] = 6;
     if (this.state.oneYearReminder) reminders[3] = 12;
 
-    if (this.props.noteToEdit) {
-      NotesAPI.updateNoteById({
-        id: this.props.noteToEdit.id,
-        customerId: this.props.noteToEdit.customerId,
-        title: this.state.title,
-        date: this.props.noteToEdit.date,
-        content: this.state.content,
-        hasReminders: reminders,
-        isCompleted: this.props.noteToEdit.isCompleted
-      }).then(() => {
-        this.props.completedEditing();
-        this.setState({
-          title: "",
-          oneMonthReminder: false,
-          threeMonthReminder: false,
-          sixMonthReminder: false,
-          oneYearReminder: false,
-          content: ""
+    if (
+      this.validateDateFormat(
+        document.getElementById("note-box-edit-custom-reminder-textbox")
+      )
+    ) {
+      if (this.props.noteToEdit) {
+        NotesAPI.updateNoteById({
+          id: this.props.noteToEdit.id,
+          customerId: this.props.noteToEdit.customerId,
+          title: this.state.title,
+          date: this.props.noteToEdit.date,
+          content: this.state.content,
+          hasReminders: reminders,
+          customReminder: this.state.customReminder,
+          isCompleted: this.state.isCompleted
+        }).then(() => {
+          this.props.completedEditing();
+          this.setState({
+            title: "",
+            oneMonthReminder: false,
+            threeMonthReminder: false,
+            sixMonthReminder: false,
+            oneYearReminder: false,
+            customReminder: "",
+            isCompleted: false,
+            content: ""
+          });
+          document
+            .getElementById("note-box-edit-header-title")
+            .setAttribute("value", "");
+          document
+            .getElementById("note-box-edit-content-textarea")
+            .setAttribute("value", "");
         });
-        document
-          .getElementById("note-box-edit-header-title")
-          .setAttribute("value", "");
-        document
-          .getElementById("note-box-edit-content-textarea")
-          .setAttribute("value", "");
-      });
+      } else {
+        NotesAPI.addNewNote({
+          customerId: this.props.customerId,
+          title: this.state.title,
+          date: new Date().toLocaleDateString("en-CA"),
+          content: this.state.content,
+          hasReminders: reminders,
+          customReminder: this.state.customReminder,
+          isCompleted: this.state.isCompleted
+        }).then(() => {
+          this.props.completedEditing();
+          this.setState({
+            title: "",
+            oneMonthReminder: false,
+            threeMonthReminder: false,
+            sixMonthReminder: false,
+            oneYearReminder: false,
+            customReminder: "",
+            isCompleted: false,
+            content: ""
+          });
+          document
+            .getElementById("note-box-edit-header-title")
+            .setAttribute("value", "");
+          document
+            .getElementById("note-box-edit-content-textarea")
+            .setAttribute("value", "");
+        });
+      }
+    }
+  };
+
+  updateCustomReminderDate = (e) => {
+    this.setState({
+      customReminder: e.target.value
+    });
+  };
+
+  validateDateFormat = (e) => {
+    const datePattern = /^\d{4}-\d{2}-\d{2}$|^$/;
+
+    if (e.target) {
+      datePattern.test(e.target.value)
+        ? e.target.classList.remove("field-validation")
+        : e.target.classList.add("field-validation");
+      return datePattern.test(e.target.value);
     } else {
-      NotesAPI.addNewNote({
-        customerId: this.props.customerId,
-        title: this.state.title,
-        date: new Date().toLocaleDateString("en-CA"),
-        content: this.state.content,
-        hasReminders: reminders,
-        isCompleted: false
-      }).then(() => {
-        this.props.completedEditing();
-        this.setState({
-          title: "",
-          oneMonthReminder: false,
-          threeMonthReminder: false,
-          sixMonthReminder: false,
-          oneYearReminder: false,
-          content: ""
-        });
-        document
-          .getElementById("note-box-edit-header-title")
-          .setAttribute("value", "");
-        document
-          .getElementById("note-box-edit-content-textarea")
-          .setAttribute("value", "");
-      });
+      return datePattern.test(e.value);
     }
   };
 
@@ -224,6 +261,37 @@ export default class NoteBoxEditor extends Component {
               >
                 1 year
               </div>
+            </div>
+          </div>
+          <div className="note-box-edit-custom-reminder-container">
+            <div className="note-box-edit-custom-reminder-label">
+              Custom Reminder:
+            </div>
+            <div>
+              <input
+                id="note-box-edit-custom-reminder-textbox"
+                className="note-box-edit-custom-reminder-textbox"
+                type="text"
+                placeholder="Optional"
+                autoComplete="off"
+                onChange={this.updateCustomReminderDate}
+                onBlur={this.validateDateFormat}
+                value={this.state.customReminder}
+              ></input>
+            </div>
+            <div className="note-box-edit-completed-label">Completed:</div>
+            <div className="note-box-edit-completed-input">
+              <input
+                id="note-box-edit-completed-checkbox"
+                className="note-box-edit-completed-checkbox"
+                type="checkbox"
+                checked={this.state.isCompleted}
+                onChange={() =>
+                  this.setState({
+                    isCompleted: !this.state.isCompleted
+                  })
+                }
+              ></input>
             </div>
           </div>
           <textarea

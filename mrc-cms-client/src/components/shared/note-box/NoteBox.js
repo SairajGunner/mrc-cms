@@ -73,7 +73,8 @@ export default class NoteBox extends Component {
             {this.props.note.title}
           </div>
           <div className="note-box-header-edit-container">
-            {this.props.note.hasReminders.length > 0 &&
+            {(this.props.note.hasReminders.length > 0 ||
+              this.props.note.customReminder) &&
               !this.props.note.isCompleted && (
                 <FontAwesomeIcon
                   className="note-box-icon"
