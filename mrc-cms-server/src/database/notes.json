@@ -1,1 +1,50 @@
-[{"id":"90753f0d-3338-4f74-bfe7-2f792251689c","customerId":"dd8d55b1-a188-40aa-9bde-7475b75eb084","title":"Catch-up on New Project","date":"2023-06-15","content":"The conversations went well and now Ricardo is waiting for the funding to be signed off before the project is started.","hasReminders":[1,12],"customReminder":"","isCompleted":false},{"id":"90753f0d-4338-4f74-bfe7-2f792251689c","customerId":"dd8d55b2-a188-40aa-9bde-7475b75eb084","title":"Het Leven van Denis - Kick-off","date":"2023-04-20","content":"The project has been officially kicked-off. The teams have started their activities and there needs to be a format report in place in 3 months time.","hasReminders":[3],"customReminder":"","isCompleted":false},{"id":"90753f0d-5338-4f74-bfe7-2f792251789c","customerId":"dd8d55b3-a188-40aa-9bde-7475b75eb084","title":"Discussion with Jason Giles","date":"2023-07-21","content":"Had a discussion with Jason about the services offered by the MRC Studio and Jason seemed to be impressed. Jason will be reaching out after conversations with his team-members.","hasReminders":[1],"isCompleted":false},{"id":"90753f0d-5338-4f74-bfe7-2f792251689c","customerId":"dd8d55b3-a188-40aa-9bde-7475b75eb084","title":"Second Discussion with Jason Giles","date":"2023-07-23","content":"Had a second discussion with Jason. He will be reaching out after conversations with his team-members.","hasReminders":[],"isCompleted":false},{"id":"7ac0247c-4c73-4ac5-b7e2-18dd24bd3bb4","customerId":"f7fe7b60-4c4f-4d92-bf15-6e3bccdf4422","title":"New Note for Paige","date":"2023-08-10","content":"Testing the custom reminder in the notifications section.","hasReminders":[],"customReminder":"2023-08-10","isCompleted":false}]
+[
+  {
+    "id": "90753f0d-3338-4f74-bfe7-2f792251689c",
+    "customerId": "dd8d55b1-a188-40aa-9bde-7475b75eb084",
+    "title": "Catch-up on New Project",
+    "date": "2023-06-15",
+    "content": "The conversations went well and now Ricardo is waiting for the funding to be signed off before the project is started.",
+    "hasReminders": [1, 12],
+    "customReminder": "",
+    "isCompleted": false
+  },
+  {
+    "id": "90753f0d-4338-4f74-bfe7-2f792251689c",
+    "customerId": "dd8d55b2-a188-40aa-9bde-7475b75eb084",
+    "title": "Het Leven van Denis - Kick-off",
+    "date": "2023-04-20",
+    "content": "The project has been officially kicked-off. The teams have started their activities and there needs to be a format report in place in 3 months time.",
+    "hasReminders": [3],
+    "customReminder": "",
+    "isCompleted": false
+  },
+  {
+    "id": "90753f0d-5338-4f74-bfe7-2f792251789c",
+    "customerId": "dd8d55b3-a188-40aa-9bde-7475b75eb084",
+    "title": "Discussion with Jason Giles",
+    "date": "2023-07-21",
+    "content": "Had a discussion with Jason about the services offered by the MRC Studio and Jason seemed to be impressed. Jason will be reaching out after conversations with his team-members.",
+    "hasReminders": [1],
+    "isCompleted": false
+  },
+  {
+    "id": "90753f0d-5338-4f74-bfe7-2f792251689c",
+    "customerId": "dd8d55b3-a188-40aa-9bde-7475b75eb084",
+    "title": "Second Discussion with Jason Giles",
+    "date": "2023-07-23",
+    "content": "Had a second discussion with Jason. He will be reaching out after conversations with his team-members.",
+    "hasReminders": [],
+    "isCompleted": false
+  },
+  {
+    "id": "7ac0247c-4c73-4ac5-b7e2-18dd24bd3bb4",
+    "customerId": "f7fe7b60-4c4f-4d92-bf15-6e3bccdf4422",
+    "title": "New Note for Paige",
+    "date": "2023-08-10",
+    "content": "Testing the custom reminder in the notifications section.",
+    "hasReminders": [],
+    "customReminder": "2023-08-10",
+    "isCompleted": false
+  }
+]
