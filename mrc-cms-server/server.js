@@ -14,7 +14,7 @@ app.use("/engagements", engagementsEndpoint);
 app.use("/notes", notesEndpoint);
 app.use("/search", searchEndpoint);
 
-var server = app.listen(3010, function () {
+var server = app.listen(process.env.PORT || 3010, function () {
   var host = server.address().address;
   var port = server.address().port;
   console.log("MRC CMS API listening at http://%s:%s", host, port);
