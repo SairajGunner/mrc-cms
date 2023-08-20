@@ -11,3 +11,7 @@ Hosting the API on Windows server (IIS)
 9. Set physical path to the folder 'mrc-cms-server' inside the local repository
 10. Recommended port - 3010 but can be changed to anything in case 3010 is unavailable
 11. Go to the application pool and change the Identity from Advanced Settings to LocalSystem
+
+Migrating the database to a new system
+
+1. Copy files files under mrc-cms-server/src/database and replace the same files in the machine where you want to migrate the data to
