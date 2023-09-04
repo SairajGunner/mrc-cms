@@ -51,12 +51,12 @@
 #searchInput {
   min-height: 25px;
   width: 350px;
-  font-size: calc(4px + 2vmin);
+  font-size: calc(10px + 1vmin);
   color: #143670;
 }
 
 #searchInput::placeholder {
-  font-size: calc(0.5px + 2vmin);
+  font-size: calc(5px + 1vmin);
 }
 
 .icon {
