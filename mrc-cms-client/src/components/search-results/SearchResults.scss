@@ -22,7 +22,7 @@ h2 {
   border-radius: 10px;
   background-color: white;
   color: #143670;
-  font-size: calc(4px + 2vmin);
+  font-size: calc(10px + 1vmin);
   margin-bottom: 10px;
   padding: 10px 0;
 }
@@ -30,7 +30,7 @@ h2 {
 .customer-details-title,
 .engagement-details-title,
 .note-details-title {
-  font-size: calc(6px + 2vmin);
+  font-size: calc(16px + 1vmin);
   font-weight: bold;
   text-align: center;
 }
@@ -50,7 +50,7 @@ h2 {
 .engagement-details-subscript,
 .note-details-subscript {
   text-align: center;
-  font-size: calc(2px + 2vmin);
+  font-size: calc(6px + 1vmin);
   padding-top: 5px;
 }
 
