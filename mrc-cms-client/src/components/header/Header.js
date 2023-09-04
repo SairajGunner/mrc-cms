@@ -3,6 +3,7 @@ import { Component } from "react";
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { BackupAPI } from "../../services/backup-service";
 
 export default class Header extends Component {
   constructor(props) {
@@ -21,6 +22,12 @@ export default class Header extends Component {
   setQueryText = (e) => {
     this.setState({
       [e.target.name]: e.target.value
+    });
+  };
+
+  createBackup = () => {
+    BackupAPI.createBackup().then((response) => {
+      if (response.ok) console.log("Backup Completed!");
     });
   };
 
@@ -69,7 +76,11 @@ export default class Header extends Component {
             </NavLink>
           </div>
         </div>
-        <div className="header-empty-space"></div>
+        <div className="header-backup-container">
+          <div onClick={this.createBackup} className="header-backup-button">
+            Create Backup
+          </div>
+        </div>
       </div>
     );
   }

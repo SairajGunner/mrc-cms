@@ -59,6 +59,27 @@
   font-size: calc(5px + 1vmin);
 }
 
+.header-backup-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 1vmin);
+  font-weight: bold;
+}
+
+.header-backup-button {
+  border: 1px solid white;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.header-backup-button:hover {
+  font-weight: bold;
+  background-color: white;
+  color: #143670;
+}
+
 .icon {
   color: grey;
   cursor: pointer;
